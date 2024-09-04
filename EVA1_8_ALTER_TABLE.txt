@@ -1,0 +1,228 @@
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 12
+Server version: 8.0.39 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| tbd_automovil      |
+| tbd_el             |
+| world              |
++--------------------+
+8 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc clientes;
++--------------+----------------------------------------+------+-----+---------+----------------+
+| Field        | Type                                   | Null | Key | Default | Extra          |
++--------------+----------------------------------------+------+-----+---------+----------------+
+| id           | int                                    | NO   | PRI | NULL    | auto_increment |
+| Nombre       | varchar(70)                            | NO   |     | NULL    |                |
+| Direccion    | varchar(50)                            | NO   |     | NULL    |                |
+| Telefono     | varchar(20)                            | NO   |     | NULL    |                |
+| rfc          | varchar(13)                            | YES  |     | NULL    |                |
+| Denominacion | enum('Persona Moral','Persona Fisica') | YES  |     | NULL    |                |
++--------------+----------------------------------------+------+-----+---------+----------------+
+6 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table clientes delete rfc;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete rfc' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table clientes
+                                       -> delete column rfc;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'delete column rfc' at line 2
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table clientes
+                                       -> drop rfc;
+Query OK, 0 rows affected (0.0300 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table clientes
+                                       -> add column rfc varchar(13) not null after nombre;
+Query OK, 0 rows affected (0.0448 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table clientes
+                                       -> change column nombre
+                                       -> razon_social varchar(100) not null;
+Query OK, 0 rows affected (0.0126 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc clientes
+                                       -> ;
++--------------+----------------------------------------+------+-----+---------+----------------+
+| Field        | Type                                   | Null | Key | Default | Extra          |
++--------------+----------------------------------------+------+-----+---------+----------------+
+| id           | int                                    | NO   | PRI | NULL    | auto_increment |
+| razon_social | varchar(100)                           | NO   |     | NULL    |                |
+| rfc          | varchar(13)                            | NO   |     | NULL    |                |
+| Direccion    | varchar(50)                            | NO   |     | NULL    |                |
+| Telefono     | varchar(20)                            | NO   |     | NULL    |                |
+| Denominacion | enum('Persona Moral','Persona Fisica') | YES  |     | NULL    |                |
++--------------+----------------------------------------+------+-----+---------+----------------+
+6 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from clientes
+                                       -> ;
++----+--------------+-----+-----------------+------------+---------------+
+| id | razon_social | rfc | Direccion       | Telefono   | Denominacion  |
++----+--------------+-----+-----------------+------------+---------------+
+|  1 | Daniel       |     | Villas del real | 6142431821 | Persona Moral |
+|  2 | Gamboa       |     | Villas del Real | 6142431821 | Persona Moral |
+|  3 | Isaac        |     | Alamedas        | 6142431821 | Persona Moral |
++----+--------------+-----+-----------------+------------+---------------+
+3 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > rename table clients to client
+                                       -> ;
+ERROR: 1146 (42S02): Table 'tbd_el.clients' doesn't exist
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc client
+                                       -> ;
+ERROR: 1146 (42S02): Table 'tbd_el.client' doesn't exist
+ MySQL  localhost:3306 ssl  tbd_el  SQL > rename table clientes to client
+                                       -> ;
+Query OK, 0 rows affected (0.0219 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc client;
++--------------+----------------------------------------+------+-----+---------+----------------+
+| Field        | Type                                   | Null | Key | Default | Extra          |
++--------------+----------------------------------------+------+-----+---------+----------------+
+| id           | int                                    | NO   | PRI | NULL    | auto_increment |
+| razon_social | varchar(100)                           | NO   |     | NULL    |                |
+| rfc          | varchar(13)                            | NO   |     | NULL    |                |
+| Direccion    | varchar(50)                            | NO   |     | NULL    |                |
+| Telefono     | varchar(20)                            | NO   |     | NULL    |                |
+| Denominacion | enum('Persona Moral','Persona Fisica') | YES  |     | NULL    |                |
++--------------+----------------------------------------+------+-----+---------+----------------+
+6 rows in set (0.0030 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create tabla docente()
+                                       -> ^C
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table docente(
+                                       -> Nombre varchar(50) not null,
+                                       -> Plaza varchar(50),
+                                       -> HorasPlaza varchar(50),
+                                       -> CentroTrabajo varchar(50),
+                                       -> Salario varchar(10),
+                                       -> Antiguedad int not nul;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'nul' at line 7
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table docente( Nombre varchar(50) not null, Plaza varchar(50), HorasPlaza varchar(50), CentroTrabajo varchar(50) not null, Salario int, Antiguedad int not null;
+
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table docente( Nombre varchar(50) not null, Plaza varchar(50), HorasPlaza varchar(50), CentroTrabajo varchar(50) not null, Salario int, Antiguedad int not null;)
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+                                       -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table docente( Nombre varchar(50) not null, Plaza varchar(50), HorasPlaza varchar(50), CentroTrabajo varchar(50) not null, Salario int, Antiguedad int not null;)
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+                                       -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table docente( Nombre varchar(50) not null, Plaza varchar(50), HorasPlaza varchar(50), CentroTrabajo varchar(50) not null, Salario int, Antiguedad int not null);
+Query OK, 0 rows affected (0.0193 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc docente
+                                       -> ;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| Nombre        | varchar(50) | NO   |     | NULL    |       |
+| Plaza         | varchar(50) | YES  |     | NULL    |       |
+| HorasPlaza    | varchar(50) | YES  |     | NULL    |       |
+| CentroTrabajo | varchar(50) | NO   |     | NULL    |       |
+| Salario       | int         | YES  |     | NULL    |       |
+| Antiguedad    | int         | NO   |     | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+6 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente
+                                       -> add column id int auto_increment key,
+                                       -> add column Apellidos varchar(50) after Nombre,
+                                       -> add column RFC varchar(13) after Apellidos;
+Query OK, 0 rows affected (0.0412 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc docentes
+                                       -> ;
+ERROR: 1146 (42S02): Table 'tbd_el.docentes' doesn't exist
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc docente;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| Nombre        | varchar(50) | NO   |     | NULL    |                |
+| Apellidos     | varchar(50) | YES  |     | NULL    |                |
+| RFC           | varchar(13) | YES  |     | NULL    |                |
+| Plaza         | varchar(50) | YES  |     | NULL    |                |
+| HorasPlaza    | varchar(50) | YES  |     | NULL    |                |
+| CentroTrabajo | varchar(50) | NO   |     | NULL    |                |
+| Salario       | int         | YES  |     | NULL    |                |
+| Antiguedad    | int         | NO   |     | NULL    |                |
+| id            | int         | NO   | PRI | NULL    | auto_increment |
++---------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente add column firts id int auto_increment key, add column Apellidos varchar(50) after Nombre, add column RFC varchar(13) after Apellidos;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'id int auto_increment key, add column Apellidos varchar(50) after Nombre, add co' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente
+                                       -> drop id;
+Query OK, 0 rows affected (0.0481 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente
+                                       -> add column id int auto_increment key firts;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'firts' at line 2
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente add column id int auto_increment key First;
+Query OK, 0 rows affected (0.0380 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc docente;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id            | int         | NO   | PRI | NULL    | auto_increment |
+| Nombre        | varchar(50) | NO   |     | NULL    |                |
+| Apellidos     | varchar(50) | YES  |     | NULL    |                |
+| RFC           | varchar(13) | YES  |     | NULL    |                |
+| Plaza         | varchar(50) | YES  |     | NULL    |                |
+| HorasPlaza    | varchar(50) | YES  |     | NULL    |                |
+| CentroTrabajo | varchar(50) | NO   |     | NULL    |                |
+| Salario       | int         | YES  |     | NULL    |                |
+| Antiguedad    | int         | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.0016 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente
+                                       -> change Plaza varchar(50) not null,
+                                       -> change colummn HorasPlaza
+                                       -> Horas varchar(40) not null;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) not null,
+change colummn HorasPlaza
+Horas varchar(40) not null' at line 2
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente change Plaza varchar(50) not null;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) not null' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente change Plaza varchar(50) not null;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar(50) not null' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente change Plaza Plaza varchar(50) not null;
+Query OK, 0 rows affected (0.0386 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > alter table docente change HorasPlaza Horas varchar(50) not null;
+Query OK, 0 rows affected (0.0359 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc docente
+                                       -> ;
++---------------+-------------+------+-----+---------+----------------+
+| Field         | Type        | Null | Key | Default | Extra          |
++---------------+-------------+------+-----+---------+----------------+
+| id            | int         | NO   | PRI | NULL    | auto_increment |
+| Nombre        | varchar(50) | NO   |     | NULL    |                |
+| Apellidos     | varchar(50) | YES  |     | NULL    |                |
+| RFC           | varchar(13) | YES  |     | NULL    |                |
+| Plaza         | varchar(50) | NO   |     | NULL    |                |
+| Horas         | varchar(50) | NO   |     | NULL    |                |
+| CentroTrabajo | varchar(50) | NO   |     | NULL    |                |
+| Salario       | int         | YES  |     | NULL    |                |
+| Antiguedad    | int         | NO   |     | NULL    |                |
++---------------+-------------+------+-----+---------+----------------+
+9 rows in set (0.0017 sec)
