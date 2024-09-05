@@ -1,0 +1,3058 @@
+MySQL Shell 8.0.38
+
+Copyright (c) 2016, 2024, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect -m root@localhost
+\connect -m root@localhost: unknown option -m
+\connect [--mx|--mysqlx|--mc|--mysql] [--ssh <sshuri>] <URI>
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 13
+Server version: 8.0.39 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc databases
+                                       -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| tbd_automovil      |
+| tbd_el             |
+| world              |
++--------------------+
+8 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table Prueba(
+                                       -> id int auto_increment key,
+                                       -> nombre varchar(50),
+                                       -> apellido varchar(50) not null,
+                                       -> edad int not null,
+                                       -> genero enum("0","1","2","3"));
+Query OK, 0 rows affected (0.0085 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from prueba;
+Empty set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from Prueba;
+Empty set (0.0006 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > insert into prueba(apellido, edad)
+                                       -> values("xxxx",10),("sbfhkjashdiuha",50),
+                                       -> ("zzzzzzzz",30),("biyufiaf",20);
+Query OK, 4 rows affected (0.0030 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from Prueba;
++----+--------+----------------+------+--------+
+| id | nombre | apellido       | edad | genero |
++----+--------+----------------+------+--------+
+|  1 | NULL   | xxxx           |   10 | NULL   |
+|  2 | NULL   | sbfhkjashdiuha |   50 | NULL   |
+|  3 | NULL   | zzzzzzzz       |   30 | NULL   |
+|  4 | NULL   | biyufiaf       |   20 | NULL   |
++----+--------+----------------+------+--------+
+4 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 14
+Server version: 8.0.39 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > show tables;
++----------------------------+
+| Tables_in_sakila           |
++----------------------------+
+| actor                      |
+| actor_info                 |
+| address                    |
+| category                   |
+| city                       |
+| country                    |
+| customer                   |
+| customer_list              |
+| film                       |
+| film_actor                 |
+| film_category              |
+| film_list                  |
+| film_text                  |
+| inventory                  |
+| language                   |
+| nicer_but_slower_film_list |
+| payment                    |
+| rental                     |
+| sales_by_film_category     |
+| sales_by_store             |
+| staff                      |
+| staff_list                 |
+| store                      |
++----------------------------+
+23 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0092 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select count(*) from actor;
++----------+
+| count(*) |
++----------+
+|      200 |
++----------+
+1 row in set (0.0239 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor limit 10;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|        1 | PENELOPE   | GUINESS      | 2006-02-15 04:34:33 |
+|        2 | NICK       | WAHLBERG     | 2006-02-15 04:34:33 |
+|        3 | ED         | CHASE        | 2006-02-15 04:34:33 |
+|        4 | JENNIFER   | DAVIS        | 2006-02-15 04:34:33 |
+|        5 | JOHNNY     | LOLLOBRIGIDA | 2006-02-15 04:34:33 |
+|        6 | BETTE      | NICHOLSON    | 2006-02-15 04:34:33 |
+|        7 | GRACE      | MOSTEL       | 2006-02-15 04:34:33 |
+|        8 | MATTHEW    | JOHANSSON    | 2006-02-15 04:34:33 |
+|        9 | JOE        | SWANK        | 2006-02-15 04:34:33 |
+|       10 | CHRISTIAN  | GABLE        | 2006-02-15 04:34:33 |
++----------+------------+--------------+---------------------+
+10 rows in set (0.0038 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table actor like sakila.actor;
+Query OK, 0 rows affected (0.0447 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show tables;
++------------------+
+| Tables_in_tbd_el |
++------------------+
+| actor            |
+| automoviles      |
+| client           |
+| docente          |
+| mascotas         |
+| peliculas        |
+| playeras         |
+| student          |
+| tv               |
++------------------+
+9 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0026 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select count(*) from actor;
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.0044 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from customer limit 10;
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+| customer_id | store_id | first_name | last_name | email                               | address_id | active | create_date         | last_update         |
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+|           1 |        1 | MARY       | SMITH     | MARY.SMITH@sakilacustomer.org       |          5 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           2 |        1 | PATRICIA   | JOHNSON   | PATRICIA.JOHNSON@sakilacustomer.org |          6 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           3 |        1 | LINDA      | WILLIAMS  | LINDA.WILLIAMS@sakilacustomer.org   |          7 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           4 |        2 | BARBARA    | JONES     | BARBARA.JONES@sakilacustomer.org    |          8 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           5 |        1 | ELIZABETH  | BROWN     | ELIZABETH.BROWN@sakilacustomer.org  |          9 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           6 |        2 | JENNIFER   | DAVIS     | JENNIFER.DAVIS@sakilacustomer.org   |         10 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           7 |        1 | MARIA      | MILLER    | MARIA.MILLER@sakilacustomer.org     |         11 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           8 |        2 | SUSAN      | WILSON    | SUSAN.WILSON@sakilacustomer.org     |         12 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           9 |        2 | MARGARET   | MOORE     | MARGARET.MOORE@sakilacustomer.org   |         13 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          10 |        1 | DOROTHY    | TAYLOR    | DOROTHY.TAYLOR@sakilacustomer.org   |         14 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+10 rows in set (0.0302 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table client as
+                                       -> select * from sakila.customer;
+ERROR: 1050 (42S01): Table 'client' already exists
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table clientes as
+                                       -> select * from sakila.customer;
+Query OK, 599 rows affected (0.0417 sec)
+
+Records: 599  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc clientes;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| customer_id | smallint unsigned | NO   |     | 0                 |                                               |
+| store_id    | tinyint unsigned  | NO   |     | NULL              |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   |     | NULL              |                                               |
+| email       | varchar(50)       | YES  |     | NULL              |                                               |
+| address_id  | smallint unsigned | NO   |     | NULL              |                                               |
+| active      | tinyint(1)        | NO   |     | 1                 |                                               |
+| create_date | datetime          | NO   |     | NULL              |                                               |
+| last_update | timestamp         | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+9 rows in set (0.0034 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from country;
++------------+---------------------------------------+---------------------+
+| country_id | country                               | last_update         |
++------------+---------------------------------------+---------------------+
+|          1 | Afghanistan                           | 2006-02-15 04:44:00 |
+|          2 | Algeria                               | 2006-02-15 04:44:00 |
+|          3 | American Samoa                        | 2006-02-15 04:44:00 |
+|          4 | Angola                                | 2006-02-15 04:44:00 |
+|          5 | Anguilla                              | 2006-02-15 04:44:00 |
+|          6 | Argentina                             | 2006-02-15 04:44:00 |
+|          7 | Armenia                               | 2006-02-15 04:44:00 |
+|          8 | Australia                             | 2006-02-15 04:44:00 |
+|          9 | Austria                               | 2006-02-15 04:44:00 |
+|         10 | Azerbaijan                            | 2006-02-15 04:44:00 |
+|         11 | Bahrain                               | 2006-02-15 04:44:00 |
+|         12 | Bangladesh                            | 2006-02-15 04:44:00 |
+|         13 | Belarus                               | 2006-02-15 04:44:00 |
+|         14 | Bolivia                               | 2006-02-15 04:44:00 |
+|         15 | Brazil                                | 2006-02-15 04:44:00 |
+|         16 | Brunei                                | 2006-02-15 04:44:00 |
+|         17 | Bulgaria                              | 2006-02-15 04:44:00 |
+|         18 | Cambodia                              | 2006-02-15 04:44:00 |
+|         19 | Cameroon                              | 2006-02-15 04:44:00 |
+|         20 | Canada                                | 2006-02-15 04:44:00 |
+|         21 | Chad                                  | 2006-02-15 04:44:00 |
+|         22 | Chile                                 | 2006-02-15 04:44:00 |
+|         23 | China                                 | 2006-02-15 04:44:00 |
+|         24 | Colombia                              | 2006-02-15 04:44:00 |
+|         25 | Congo, The Democratic Republic of the | 2006-02-15 04:44:00 |
+|         26 | Czech Republic                        | 2006-02-15 04:44:00 |
+|         27 | Dominican Republic                    | 2006-02-15 04:44:00 |
+|         28 | Ecuador                               | 2006-02-15 04:44:00 |
+|         29 | Egypt                                 | 2006-02-15 04:44:00 |
+|         30 | Estonia                               | 2006-02-15 04:44:00 |
+|         31 | Ethiopia                              | 2006-02-15 04:44:00 |
+|         32 | Faroe Islands                         | 2006-02-15 04:44:00 |
+|         33 | Finland                               | 2006-02-15 04:44:00 |
+|         34 | France                                | 2006-02-15 04:44:00 |
+|         35 | French Guiana                         | 2006-02-15 04:44:00 |
+|         36 | French Polynesia                      | 2006-02-15 04:44:00 |
+|         37 | Gambia                                | 2006-02-15 04:44:00 |
+|         38 | Germany                               | 2006-02-15 04:44:00 |
+|         39 | Greece                                | 2006-02-15 04:44:00 |
+|         40 | Greenland                             | 2006-02-15 04:44:00 |
+|         41 | Holy See (Vatican City State)         | 2006-02-15 04:44:00 |
+|         42 | Hong Kong                             | 2006-02-15 04:44:00 |
+|         43 | Hungary                               | 2006-02-15 04:44:00 |
+|         44 | India                                 | 2006-02-15 04:44:00 |
+|         45 | Indonesia                             | 2006-02-15 04:44:00 |
+|         46 | Iran                                  | 2006-02-15 04:44:00 |
+|         47 | Iraq                                  | 2006-02-15 04:44:00 |
+|         48 | Israel                                | 2006-02-15 04:44:00 |
+|         49 | Italy                                 | 2006-02-15 04:44:00 |
+|         50 | Japan                                 | 2006-02-15 04:44:00 |
+|         51 | Kazakstan                             | 2006-02-15 04:44:00 |
+|         52 | Kenya                                 | 2006-02-15 04:44:00 |
+|         53 | Kuwait                                | 2006-02-15 04:44:00 |
+|         54 | Latvia                                | 2006-02-15 04:44:00 |
+|         55 | Liechtenstein                         | 2006-02-15 04:44:00 |
+|         56 | Lithuania                             | 2006-02-15 04:44:00 |
+|         57 | Madagascar                            | 2006-02-15 04:44:00 |
+|         58 | Malawi                                | 2006-02-15 04:44:00 |
+|         59 | Malaysia                              | 2006-02-15 04:44:00 |
+|         60 | Mexico                                | 2006-02-15 04:44:00 |
+|         61 | Moldova                               | 2006-02-15 04:44:00 |
+|         62 | Morocco                               | 2006-02-15 04:44:00 |
+|         63 | Mozambique                            | 2006-02-15 04:44:00 |
+|         64 | Myanmar                               | 2006-02-15 04:44:00 |
+|         65 | Nauru                                 | 2006-02-15 04:44:00 |
+|         66 | Nepal                                 | 2006-02-15 04:44:00 |
+|         67 | Netherlands                           | 2006-02-15 04:44:00 |
+|         68 | New Zealand                           | 2006-02-15 04:44:00 |
+|         69 | Nigeria                               | 2006-02-15 04:44:00 |
+|         70 | North Korea                           | 2006-02-15 04:44:00 |
+|         71 | Oman                                  | 2006-02-15 04:44:00 |
+|         72 | Pakistan                              | 2006-02-15 04:44:00 |
+|         73 | Paraguay                              | 2006-02-15 04:44:00 |
+|         74 | Peru                                  | 2006-02-15 04:44:00 |
+|         75 | Philippines                           | 2006-02-15 04:44:00 |
+|         76 | Poland                                | 2006-02-15 04:44:00 |
+|         77 | Puerto Rico                           | 2006-02-15 04:44:00 |
+|         78 | Romania                               | 2006-02-15 04:44:00 |
+|         79 | Réunion                               | 2006-02-15 04:44:00 |
+|         80 | Russian Federation                    | 2006-02-15 04:44:00 |
+|         81 | Saint Vincent and the Grenadines      | 2006-02-15 04:44:00 |
+|         82 | Saudi Arabia                          | 2006-02-15 04:44:00 |
+|         83 | Senegal                               | 2006-02-15 04:44:00 |
+|         84 | Slovakia                              | 2006-02-15 04:44:00 |
+|         85 | South Africa                          | 2006-02-15 04:44:00 |
+|         86 | South Korea                           | 2006-02-15 04:44:00 |
+|         87 | Spain                                 | 2006-02-15 04:44:00 |
+|         88 | Sri Lanka                             | 2006-02-15 04:44:00 |
+|         89 | Sudan                                 | 2006-02-15 04:44:00 |
+|         90 | Sweden                                | 2006-02-15 04:44:00 |
+|         91 | Switzerland                           | 2006-02-15 04:44:00 |
+|         92 | Taiwan                                | 2006-02-15 04:44:00 |
+|         93 | Tanzania                              | 2006-02-15 04:44:00 |
+|         94 | Thailand                              | 2006-02-15 04:44:00 |
+|         95 | Tonga                                 | 2006-02-15 04:44:00 |
+|         96 | Tunisia                               | 2006-02-15 04:44:00 |
+|         97 | Turkey                                | 2006-02-15 04:44:00 |
+|         98 | Turkmenistan                          | 2006-02-15 04:44:00 |
+|         99 | Tuvalu                                | 2006-02-15 04:44:00 |
+|        100 | Ukraine                               | 2006-02-15 04:44:00 |
+|        101 | United Arab Emirates                  | 2006-02-15 04:44:00 |
+|        102 | United Kingdom                        | 2006-02-15 04:44:00 |
+|        103 | United States                         | 2006-02-15 04:44:00 |
+|        104 | Venezuela                             | 2006-02-15 04:44:00 |
+|        105 | Vietnam                               | 2006-02-15 04:44:00 |
+|        106 | Virgin Islands, U.S.                  | 2006-02-15 04:44:00 |
+|        107 | Yemen                                 | 2006-02-15 04:44:00 |
+|        108 | Yugoslavia                            | 2006-02-15 04:44:00 |
+|        109 | Zambia                                | 2006-02-15 04:44:00 |
++------------+---------------------------------------+---------------------+
+109 rows in set (0.0312 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table pais as
+                                       -> select * from sakila.country;
+Query OK, 109 rows affected (0.0026 sec)
+
+Records: 109  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show tables;
++------------------+
+| Tables_in_tbd_el |
++------------------+
+| actor            |
+| automoviles      |
+| client           |
+| clientes         |
+| docente          |
+| mascotas         |
+| peliculas        |
+| playeras         |
+| student          |
+| tv               |
++------------------+
+10 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from pais;
++------------+---------------------------------------+---------------------+
+| country_id | country                               | last_update         |
++------------+---------------------------------------+---------------------+
+|          1 | Afghanistan                           | 2006-02-15 04:44:00 |
+|          2 | Algeria                               | 2006-02-15 04:44:00 |
+|          3 | American Samoa                        | 2006-02-15 04:44:00 |
+|          4 | Angola                                | 2006-02-15 04:44:00 |
+|          5 | Anguilla                              | 2006-02-15 04:44:00 |
+|          6 | Argentina                             | 2006-02-15 04:44:00 |
+|          7 | Armenia                               | 2006-02-15 04:44:00 |
+|          8 | Australia                             | 2006-02-15 04:44:00 |
+|          9 | Austria                               | 2006-02-15 04:44:00 |
+|         10 | Azerbaijan                            | 2006-02-15 04:44:00 |
+|         11 | Bahrain                               | 2006-02-15 04:44:00 |
+|         12 | Bangladesh                            | 2006-02-15 04:44:00 |
+|         13 | Belarus                               | 2006-02-15 04:44:00 |
+|         14 | Bolivia                               | 2006-02-15 04:44:00 |
+|         15 | Brazil                                | 2006-02-15 04:44:00 |
+|         16 | Brunei                                | 2006-02-15 04:44:00 |
+|         17 | Bulgaria                              | 2006-02-15 04:44:00 |
+|         18 | Cambodia                              | 2006-02-15 04:44:00 |
+|         19 | Cameroon                              | 2006-02-15 04:44:00 |
+|         20 | Canada                                | 2006-02-15 04:44:00 |
+|         21 | Chad                                  | 2006-02-15 04:44:00 |
+|         22 | Chile                                 | 2006-02-15 04:44:00 |
+|         23 | China                                 | 2006-02-15 04:44:00 |
+|         24 | Colombia                              | 2006-02-15 04:44:00 |
+|         25 | Congo, The Democratic Republic of the | 2006-02-15 04:44:00 |
+|         26 | Czech Republic                        | 2006-02-15 04:44:00 |
+|         27 | Dominican Republic                    | 2006-02-15 04:44:00 |
+|         28 | Ecuador                               | 2006-02-15 04:44:00 |
+|         29 | Egypt                                 | 2006-02-15 04:44:00 |
+|         30 | Estonia                               | 2006-02-15 04:44:00 |
+|         31 | Ethiopia                              | 2006-02-15 04:44:00 |
+|         32 | Faroe Islands                         | 2006-02-15 04:44:00 |
+|         33 | Finland                               | 2006-02-15 04:44:00 |
+|         34 | France                                | 2006-02-15 04:44:00 |
+|         35 | French Guiana                         | 2006-02-15 04:44:00 |
+|         36 | French Polynesia                      | 2006-02-15 04:44:00 |
+|         37 | Gambia                                | 2006-02-15 04:44:00 |
+|         38 | Germany                               | 2006-02-15 04:44:00 |
+|         39 | Greece                                | 2006-02-15 04:44:00 |
+|         40 | Greenland                             | 2006-02-15 04:44:00 |
+|         41 | Holy See (Vatican City State)         | 2006-02-15 04:44:00 |
+|         42 | Hong Kong                             | 2006-02-15 04:44:00 |
+|         43 | Hungary                               | 2006-02-15 04:44:00 |
+|         44 | India                                 | 2006-02-15 04:44:00 |
+|         45 | Indonesia                             | 2006-02-15 04:44:00 |
+|         46 | Iran                                  | 2006-02-15 04:44:00 |
+|         47 | Iraq                                  | 2006-02-15 04:44:00 |
+|         48 | Israel                                | 2006-02-15 04:44:00 |
+|         49 | Italy                                 | 2006-02-15 04:44:00 |
+|         50 | Japan                                 | 2006-02-15 04:44:00 |
+|         51 | Kazakstan                             | 2006-02-15 04:44:00 |
+|         52 | Kenya                                 | 2006-02-15 04:44:00 |
+|         53 | Kuwait                                | 2006-02-15 04:44:00 |
+|         54 | Latvia                                | 2006-02-15 04:44:00 |
+|         55 | Liechtenstein                         | 2006-02-15 04:44:00 |
+|         56 | Lithuania                             | 2006-02-15 04:44:00 |
+|         57 | Madagascar                            | 2006-02-15 04:44:00 |
+|         58 | Malawi                                | 2006-02-15 04:44:00 |
+|         59 | Malaysia                              | 2006-02-15 04:44:00 |
+|         60 | Mexico                                | 2006-02-15 04:44:00 |
+|         61 | Moldova                               | 2006-02-15 04:44:00 |
+|         62 | Morocco                               | 2006-02-15 04:44:00 |
+|         63 | Mozambique                            | 2006-02-15 04:44:00 |
+|         64 | Myanmar                               | 2006-02-15 04:44:00 |
+|         65 | Nauru                                 | 2006-02-15 04:44:00 |
+|         66 | Nepal                                 | 2006-02-15 04:44:00 |
+|         67 | Netherlands                           | 2006-02-15 04:44:00 |
+|         68 | New Zealand                           | 2006-02-15 04:44:00 |
+|         69 | Nigeria                               | 2006-02-15 04:44:00 |
+|         70 | North Korea                           | 2006-02-15 04:44:00 |
+|         71 | Oman                                  | 2006-02-15 04:44:00 |
+|         72 | Pakistan                              | 2006-02-15 04:44:00 |
+|         73 | Paraguay                              | 2006-02-15 04:44:00 |
+|         74 | Peru                                  | 2006-02-15 04:44:00 |
+|         75 | Philippines                           | 2006-02-15 04:44:00 |
+|         76 | Poland                                | 2006-02-15 04:44:00 |
+|         77 | Puerto Rico                           | 2006-02-15 04:44:00 |
+|         78 | Romania                               | 2006-02-15 04:44:00 |
+|         79 | Réunion                               | 2006-02-15 04:44:00 |
+|         80 | Russian Federation                    | 2006-02-15 04:44:00 |
+|         81 | Saint Vincent and the Grenadines      | 2006-02-15 04:44:00 |
+|         82 | Saudi Arabia                          | 2006-02-15 04:44:00 |
+|         83 | Senegal                               | 2006-02-15 04:44:00 |
+|         84 | Slovakia                              | 2006-02-15 04:44:00 |
+|         85 | South Africa                          | 2006-02-15 04:44:00 |
+|         86 | South Korea                           | 2006-02-15 04:44:00 |
+|         87 | Spain                                 | 2006-02-15 04:44:00 |
+|         88 | Sri Lanka                             | 2006-02-15 04:44:00 |
+|         89 | Sudan                                 | 2006-02-15 04:44:00 |
+|         90 | Sweden                                | 2006-02-15 04:44:00 |
+|         91 | Switzerland                           | 2006-02-15 04:44:00 |
+|         92 | Taiwan                                | 2006-02-15 04:44:00 |
+|         93 | Tanzania                              | 2006-02-15 04:44:00 |
+|         94 | Thailand                              | 2006-02-15 04:44:00 |
+|         95 | Tonga                                 | 2006-02-15 04:44:00 |
+|         96 | Tunisia                               | 2006-02-15 04:44:00 |
+|         97 | Turkey                                | 2006-02-15 04:44:00 |
+|         98 | Turkmenistan                          | 2006-02-15 04:44:00 |
+|         99 | Tuvalu                                | 2006-02-15 04:44:00 |
+|        100 | Ukraine                               | 2006-02-15 04:44:00 |
+|        101 | United Arab Emirates                  | 2006-02-15 04:44:00 |
+|        102 | United Kingdom                        | 2006-02-15 04:44:00 |
+|        103 | United States                         | 2006-02-15 04:44:00 |
+|        104 | Venezuela                             | 2006-02-15 04:44:00 |
+|        105 | Vietnam                               | 2006-02-15 04:44:00 |
+|        106 | Virgin Islands, U.S.                  | 2006-02-15 04:44:00 |
+|        107 | Yemen                                 | 2006-02-15 04:44:00 |
+|        108 | Yugoslavia                            | 2006-02-15 04:44:00 |
+|        109 | Zambia                                | 2006-02-15 04:44:00 |
++------------+---------------------------------------+---------------------+
+109 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table like sakila.category;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like sakila.category' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table film1 as
+                                       -> select * from sakila.film;
+Query OK, 1000 rows affected (0.0749 sec)
+
+Records: 1000  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary film2 as
+                                       -> select title * from sakila.film;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'film2 as
+select title * from sakila.film' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table film2 as select title * from sakila.film;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from sakila.film' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table film2 as select title from sakila.film;
+Query OK, 1000 rows affected (0.0375 sec)
+
+Records: 1000  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show tables;
++------------------+
+| Tables_in_tbd_el |
++------------------+
+| actor            |
+| automoviles      |
+| client           |
+| clientes         |
+| docente          |
+| film1            |
+| film2            |
+| mascotas         |
+| peliculas        |
+| playeras         |
+| student          |
+| tv               |
++------------------+
+12 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc film2;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| title | varchar(128) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+1 row in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from film2;
++-----------------------------+
+| title                       |
++-----------------------------+
+| ACADEMY DINOSAUR            |
+| ACE GOLDFINGER              |
+| ADAPTATION HOLES            |
+| AFFAIR PREJUDICE            |
+| AFRICAN EGG                 |
+| AGENT TRUMAN                |
+| AIRPLANE SIERRA             |
+| AIRPORT POLLOCK             |
+| ALABAMA DEVIL               |
+| ALADDIN CALENDAR            |
+| ALAMO VIDEOTAPE             |
+| ALASKA PHANTOM              |
+| ALI FOREVER                 |
+| ALICE FANTASIA              |
+| ALIEN CENTER                |
+| ALLEY EVOLUTION             |
+| ALONE TRIP                  |
+| ALTER VICTORY               |
+| AMADEUS HOLY                |
+| AMELIE HELLFIGHTERS         |
+| AMERICAN CIRCUS             |
+| AMISTAD MIDSUMMER           |
+| ANACONDA CONFESSIONS        |
+| ANALYZE HOOSIERS            |
+| ANGELS LIFE                 |
+| ANNIE IDENTITY              |
+| ANONYMOUS HUMAN             |
+| ANTHEM LUKE                 |
+| ANTITRUST TOMATOES          |
+| ANYTHING SAVANNAH           |
+| APACHE DIVINE               |
+| APOCALYPSE FLAMINGOS        |
+| APOLLO TEEN                 |
+| ARABIA DOGMA                |
+| ARACHNOPHOBIA ROLLERCOASTER |
+| ARGONAUTS TOWN              |
+| ARIZONA BANG                |
+| ARK RIDGEMONT               |
+| ARMAGEDDON LOST             |
+| ARMY FLINTSTONES            |
+| ARSENIC INDEPENDENCE        |
+| ARTIST COLDBLOODED          |
+| ATLANTIS CAUSE              |
+| ATTACKS HATE                |
+| ATTRACTION NEWTON           |
+| AUTUMN CROW                 |
+| BABY HALL                   |
+| BACKLASH UNDEFEATED         |
+| BADMAN DAWN                 |
+| BAKED CLEOPATRA             |
+| BALLOON HOMEWARD            |
+| BALLROOM MOCKINGBIRD        |
+| BANG KWAI                   |
+| BANGER PINOCCHIO            |
+| BARBARELLA STREETCAR        |
+| BAREFOOT MANCHURIAN         |
+| BASIC EASY                  |
+| BEACH HEARTBREAKERS         |
+| BEAR GRACELAND              |
+| BEAST HUNCHBACK             |
+| BEAUTY GREASE               |
+| BED HIGHBALL                |
+| BEDAZZLED MARRIED           |
+| BEETHOVEN EXORCIST          |
+| BEHAVIOR RUNAWAY            |
+| BENEATH RUSH                |
+| BERETS AGENT                |
+| BETRAYED REAR               |
+| BEVERLY OUTLAW              |
+| BIKINI BORROWERS            |
+| BILKO ANONYMOUS             |
+| BILL OTHERS                 |
+| BINGO TALENTED              |
+| BIRCH ANTITRUST             |
+| BIRD INDEPENDENCE           |
+| BIRDCAGE CASPER             |
+| BIRDS PERDITION             |
+| BLACKOUT PRIVATE            |
+| BLADE POLISH                |
+| BLANKET BEVERLY             |
+| BLINDNESS GUN               |
+| BLOOD ARGONAUTS             |
+| BLUES INSTINCT              |
+| BOILED DARES                |
+| BONNIE HOLOCAUST            |
+| BOOGIE AMELIE               |
+| BOONDOCK BALLROOM           |
+| BORN SPINAL                 |
+| BORROWERS BEDAZZLED         |
+| BOULEVARD MOB               |
+| BOUND CHEAPER               |
+| BOWFINGER GABLES            |
+| BRANNIGAN SUNRISE           |
+| BRAVEHEART HUMAN            |
+| BREAKFAST GOLDFINGER        |
+| BREAKING HOME               |
+| BRIDE INTRIGUE              |
+| BRIGHT ENCOUNTERS           |
+| BRINGING HYSTERICAL         |
+| BROOKLYN DESERT             |
+| BROTHERHOOD BLANKET         |
+| BUBBLE GROSSE               |
+| BUCKET BROTHERHOOD          |
+| BUGSY SONG                  |
+| BULL SHAWSHANK              |
+| BULWORTH COMMANDMENTS       |
+| BUNCH MINDS                 |
+| BUTCH PANTHER               |
+| BUTTERFLY CHOCOLAT          |
+| CABIN FLASH                 |
+| CADDYSHACK JEDI             |
+| CALENDAR GUNFIGHT           |
+| CALIFORNIA BIRDS            |
+| CAMELOT VACATION            |
+| CAMPUS REMEMBER             |
+| CANDIDATE PERDITION         |
+| CANDLES GRAPES              |
+| CANYON STOCK                |
+| CAPER MOTIONS               |
+| CARIBBEAN LIBERTY           |
+| CAROL TEXAS                 |
+| CARRIE BUNCH                |
+| CASABLANCA SUPER            |
+| CASPER DRAGONFLY            |
+| CASSIDY WYOMING             |
+| CASUALTIES ENCINO           |
+| CAT CONEHEADS               |
+| CATCH AMISTAD               |
+| CAUSE DATE                  |
+| CELEBRITY HORN              |
+| CENTER DINOSAUR             |
+| CHAINSAW UPTOWN             |
+| CHAMBER ITALIAN             |
+| CHAMPION FLATLINERS         |
+| CHANCE RESURRECTION         |
+| CHAPLIN LICENSE             |
+| CHARADE DUFFEL              |
+| CHARIOTS CONSPIRACY         |
+| CHASING FIGHT               |
+| CHEAPER CLYDE               |
+| CHICAGO NORTH               |
+| CHICKEN HELLFIGHTERS        |
+| CHILL LUCK                  |
+| CHINATOWN GLADIATOR         |
+| CHISUM BEHAVIOR             |
+| CHITTY LOCK                 |
+| CHOCOLAT HARRY              |
+| CHOCOLATE DUCK              |
+| CHRISTMAS MOONSHINE         |
+| CIDER DESIRE                |
+| CINCINATTI WHISPERER        |
+| CIRCUS YOUTH                |
+| CITIZEN SHREK               |
+| CLASH FREDDY                |
+| CLEOPATRA DEVIL             |
+| CLERKS ANGELS               |
+| CLOCKWORK PARADISE          |
+| CLONES PINOCCHIO            |
+| CLOSER BANG                 |
+| CLUB GRAFFITI               |
+| CLUE GRAIL                  |
+| CLUELESS BUCKET             |
+| CLYDE THEORY                |
+| COAST RAINBOW               |
+| COLDBLOODED DARLING         |
+| COLOR PHILADELPHIA          |
+| COMA HEAD                   |
+| COMANCHEROS ENEMY           |
+| COMFORTS RUSH               |
+| COMMAND DARLING             |
+| COMMANDMENTS EXPRESS        |
+| CONEHEADS SMOOCHY           |
+| CONFESSIONS MAGUIRE         |
+| CONFIDENTIAL INTERVIEW      |
+| CONFUSED CANDLES            |
+| CONGENIALITY QUEST          |
+| CONNECTICUT TRAMP           |
+| CONNECTION MICROCOSMOS      |
+| CONQUERER NUTS              |
+| CONSPIRACY SPIRIT           |
+| CONTACT ANONYMOUS           |
+| CONTROL ANTHEM              |
+| CONVERSATION DOWNHILL       |
+| CORE SUIT                   |
+| COWBOY DOOM                 |
+| CRAFT OUTFIELD              |
+| CRANES RESERVOIR            |
+| CRAZY HOME                  |
+| CREATURES SHAKESPEARE       |
+| CREEPERS KANE               |
+| CROOKED FROGMEN             |
+| CROSSING DIVORCE            |
+| CROSSROADS CASUALTIES       |
+| CROW GREASE                 |
+| CROWDS TELEMARK             |
+| CRUELTY UNFORGIVEN          |
+| CRUSADE HONEY               |
+| CRYSTAL BREAKING            |
+| CUPBOARD SINNERS            |
+| CURTAIN VIDEOTAPE           |
+| CYCLONE FAMILY              |
+| DADDY PITTSBURGH            |
+| DAISY MENAGERIE             |
+| DALMATIONS SWEDEN           |
+| DANCES NONE                 |
+| DANCING FEVER               |
+| DANGEROUS UPTOWN            |
+| DARES PLUTO                 |
+| DARKNESS WAR                |
+| DARKO DORADO                |
+| DARLING BREAKING            |
+| DARN FORRESTER              |
+| DATE SPEED                  |
+| DAUGHTER MADIGAN            |
+| DAWN POND                   |
+| DAY UNFAITHFUL              |
+| DAZED PUNK                  |
+| DECEIVER BETRAYED           |
+| DEEP CRUSADE                |
+| DEER VIRGINIAN              |
+| DELIVERANCE MULHOLLAND      |
+| DESERT POSEIDON             |
+| DESIRE ALIEN                |
+| DESPERATE TRAINSPOTTING     |
+| DESTINATION JERK            |
+| DESTINY SATURDAY            |
+| DETAILS PACKER              |
+| DETECTIVE VISION            |
+| DEVIL DESIRE                |
+| DIARY PANIC                 |
+| DINOSAUR SECRETARY          |
+| DIRTY ACE                   |
+| DISCIPLE MOTHER             |
+| DISTURBING SCARFACE         |
+| DIVIDE MONSTER              |
+| DIVINE RESURRECTION         |
+| DIVORCE SHINING             |
+| DOCTOR GRAIL                |
+| DOGMA FAMILY                |
+| DOLLS RAGE                  |
+| DONNIE ALLEY                |
+| DOOM DANCING                |
+| DOORS PRESIDENT             |
+| DORADO NOTTING              |
+| DOUBLE WRATH                |
+| DOUBTFIRE LABYRINTH         |
+| DOWNHILL ENOUGH             |
+| DOZEN LION                  |
+| DRACULA CRYSTAL             |
+| DRAGON SQUAD                |
+| DRAGONFLY STRANGERS         |
+| DREAM PICKUP                |
+| DRIFTER COMMANDMENTS        |
+| DRIVER ANNIE                |
+| DRIVING POLISH              |
+| DROP WATERFRONT             |
+| DRUMLINE CYCLONE            |
+| DRUMS DYNAMITE              |
+| DUCK RACER                  |
+| DUDE BLINDNESS              |
+| DUFFEL APOCALYPSE           |
+| DUMBO LUST                  |
+| DURHAM PANKY                |
+| DWARFS ALTER                |
+| DYING MAKER                 |
+| DYNAMITE TARZAN             |
+| EAGLES PANKY                |
+| EARLY HOME                  |
+| EARRING INSTINCT            |
+| EARTH VISION                |
+| EASY GLADIATOR              |
+| EDGE KISSING                |
+| EFFECT GLADIATOR            |
+| EGG IGBY                    |
+| EGYPT TENENBAUMS            |
+| ELEMENT FREDDY              |
+| ELEPHANT TROJAN             |
+| ELF MURDER                  |
+| ELIZABETH SHANE             |
+| EMPIRE MALKOVICH            |
+| ENCINO ELF                  |
+| ENCOUNTERS CURTAIN          |
+| ENDING CROWDS               |
+| ENEMY ODDS                  |
+| ENGLISH BULWORTH            |
+| ENOUGH RAGING               |
+| ENTRAPMENT SATISFACTION     |
+| ESCAPE METROPOLIS           |
+| EVE RESURRECTION            |
+| EVERYONE CRAFT              |
+| EVOLUTION ALTER             |
+| EXCITEMENT EVE              |
+| EXORCIST STING              |
+| EXPECATIONS NATURAL         |
+| EXPENDABLE STALLION         |
+| EXPRESS LONELY              |
+| EXTRAORDINARY CONQUERER     |
+| EYES DRIVING                |
+| FACTORY DRAGON              |
+| FALCON VOLUME               |
+| FAMILY SWEET                |
+| FANTASIA PARK               |
+| FANTASY TROOPERS            |
+| FARGO GANDHI                |
+| FATAL HAUNTED               |
+| FEATHERS METAL              |
+| FELLOWSHIP AUTUMN           |
+| FERRIS MOTHER               |
+| FEUD FROGMEN                |
+| FEVER EMPIRE                |
+| FICTION CHRISTMAS           |
+| FIDDLER LOST                |
+| FIDELITY DEVIL              |
+| FIGHT JAWBREAKER            |
+| FINDING ANACONDA            |
+| FIRE WOLVES                 |
+| FIREBALL PHILADELPHIA       |
+| FIREHOUSE VIETNAM           |
+| FISH OPUS                   |
+| FLAMINGOS CONNECTICUT       |
+| FLASH WARS                  |
+| FLATLINERS KILLER           |
+| FLIGHT LIES                 |
+| FLINTSTONES HAPPINESS       |
+| FLOATS GARDEN               |
+| FLYING HOOK                 |
+| FOOL MOCKINGBIRD            |
+| FOREVER CANDIDATE           |
+| FORREST SONS                |
+| FORRESTER COMANCHEROS       |
+| FORWARD TEMPLE              |
+| FRANKENSTEIN STRANGER       |
+| FREAKY POCUS                |
+| FREDDY STORM                |
+| FREEDOM CLEOPATRA           |
+| FRENCH HOLIDAY              |
+| FRIDA SLIPPER               |
+| FRISCO FORREST              |
+| FROGMEN BREAKING            |
+| FRONTIER CABIN              |
+| FROST HEAD                  |
+| FUGITIVE MAGUIRE            |
+| FULL FLATLINERS             |
+| FURY MURDER                 |
+| GABLES METROPOLIS           |
+| GALAXY SWEETHEARTS          |
+| GAMES BOWFINGER             |
+| GANDHI KWAI                 |
+| GANGS PRIDE                 |
+| GARDEN ISLAND               |
+| GASLIGHT CRUSADE            |
+| GATHERING CALENDAR          |
+| GENTLEMEN STAGE             |
+| GHOST GROUNDHOG             |
+| GHOSTBUSTERS ELF            |
+| GIANT TROOPERS              |
+| GILBERT PELICAN             |
+| GILMORE BOILED              |
+| GLADIATOR WESTWARD          |
+| GLASS DYING                 |
+| GLEAMING JAWBREAKER         |
+| GLORY TRACY                 |
+| GO PURPLE                   |
+| GODFATHER DIARY             |
+| GOLD RIVER                  |
+| GOLDFINGER SENSIBILITY      |
+| GOLDMINE TYCOON             |
+| GONE TROUBLE                |
+| GOODFELLAS SALUTE           |
+| GORGEOUS BINGO              |
+| GOSFORD DONNIE              |
+| GRACELAND DYNAMITE          |
+| GRADUATE LORD               |
+| GRAFFITI LOVE               |
+| GRAIL FRANKENSTEIN          |
+| GRAPES FURY                 |
+| GREASE YOUTH                |
+| GREATEST NORTH              |
+| GREEDY ROOTS                |
+| GREEK EVERYONE              |
+| GRINCH MASSAGE              |
+| GRIT CLOCKWORK              |
+| GROOVE FICTION              |
+| GROSSE WONDERFUL            |
+| GROUNDHOG UNCUT             |
+| GUMP DATE                   |
+| GUN BONNIE                  |
+| GUNFIGHT MOON               |
+| GUNFIGHTER MUSSOLINI        |
+| GUYS FALCON                 |
+| HALF OUTFIELD               |
+| HALL CASSIDY                |
+| HALLOWEEN NUTS              |
+| HAMLET WISDOM               |
+| HANDICAP BOONDOCK           |
+| HANGING DEEP                |
+| HANKY OCTOBER               |
+| HANOVER GALAXY              |
+| HAPPINESS UNITED            |
+| HARDLY ROBBERS              |
+| HAROLD FRENCH               |
+| HARPER DYING                |
+| HARRY IDAHO                 |
+| HATE HANDICAP               |
+| HAUNTED ANTITRUST           |
+| HAUNTING PIANIST            |
+| HAWK CHILL                  |
+| HEAD STRANGER               |
+| HEARTBREAKERS BRIGHT        |
+| HEAVEN FREEDOM              |
+| HEAVENLY GUN                |
+| HEAVYWEIGHTS BEAST          |
+| HEDWIG ALTER                |
+| HELLFIGHTERS SIERRA         |
+| HIGH ENCINO                 |
+| HIGHBALL POTTER             |
+| HILLS NEIGHBORS             |
+| HOBBIT ALIEN                |
+| HOCUS FRIDA                 |
+| HOLES BRANNIGAN             |
+| HOLIDAY GAMES               |
+| HOLLOW JEOPARDY             |
+| HOLLYWOOD ANONYMOUS         |
+| HOLOCAUST HIGHBALL          |
+| HOLY TADPOLE                |
+| HOME PITY                   |
+| HOMEWARD CIDER              |
+| HOMICIDE PEACH              |
+| HONEY TIES                  |
+| HOOK CHARIOTS               |
+| HOOSIERS BIRDCAGE           |
+| HOPE TOOTSIE                |
+| HORN WORKING                |
+| HORROR REIGN                |
+| HOTEL HAPPINESS             |
+| HOURS RAGE                  |
+| HOUSE DYNAMITE              |
+| HUMAN GRAFFITI              |
+| HUNCHBACK IMPOSSIBLE        |
+| HUNGER ROOF                 |
+| HUNTER ALTER                |
+| HUNTING MUSKETEERS          |
+| HURRICANE AFFAIR            |
+| HUSTLER PARTY               |
+| HYDE DOCTOR                 |
+| HYSTERICAL GRAIL            |
+| ICE CROSSING                |
+| IDAHO LOVE                  |
+| IDENTITY LOVER              |
+| IDOLS SNATCHERS             |
+| IGBY MAKER                  |
+| ILLUSION AMELIE             |
+| IMAGE PRINCESS              |
+| IMPACT ALADDIN              |
+| IMPOSSIBLE PREJUDICE        |
+| INCH JET                    |
+| INDEPENDENCE HOTEL          |
+| INDIAN LOVE                 |
+| INFORMER DOUBLE             |
+| INNOCENT USUAL              |
+| INSECTS STONE               |
+| INSIDER ARIZONA             |
+| INSTINCT AIRPORT            |
+| INTENTIONS EMPIRE           |
+| INTERVIEW LIAISONS          |
+| INTOLERABLE INTENTIONS      |
+| INTRIGUE WORST              |
+| INVASION CYCLONE            |
+| IRON MOON                   |
+| ISHTAR ROCKETEER            |
+| ISLAND EXORCIST             |
+| ITALIAN AFRICAN             |
+| JACKET FRISCO               |
+| JADE BUNCH                  |
+| JAPANESE RUN                |
+| JASON TRAP                  |
+| JAWBREAKER BROOKLYN         |
+| JAWS HARRY                  |
+| JEDI BENEATH                |
+| JEEPERS WEDDING             |
+| JEKYLL FROGMEN              |
+| JEOPARDY ENCINO             |
+| JERICHO MULAN               |
+| JERK PAYCHECK               |
+| JERSEY SASSY                |
+| JET NEIGHBORS               |
+| JINGLE SAGEBRUSH            |
+| JOON NORTHWEST              |
+| JUGGLER HARDLY              |
+| JUMANJI BLADE               |
+| JUMPING WRATH               |
+| JUNGLE CLOSER               |
+| KANE EXORCIST               |
+| KARATE MOON                 |
+| KENTUCKIAN GIANT            |
+| KICK SAVANNAH               |
+| KILL BROTHERHOOD            |
+| KILLER INNOCENT             |
+| KING EVOLUTION              |
+| KISS GLORY                  |
+| KISSING DOLLS               |
+| KNOCK WARLOCK               |
+| KRAMER CHOCOLATE            |
+| KWAI HOMEWARD               |
+| LABYRINTH LEAGUE            |
+| LADY STAGE                  |
+| LADYBUGS ARMAGEDDON         |
+| LAMBS CINCINATTI            |
+| LANGUAGE COWBOY             |
+| LAWLESS VISION              |
+| LAWRENCE LOVE               |
+| LEAGUE HELLFIGHTERS         |
+| LEATHERNECKS DWARFS         |
+| LEBOWSKI SOLDIERS           |
+| LEGALLY SECRETARY           |
+| LEGEND JEDI                 |
+| LESSON CLEOPATRA            |
+| LIAISONS SWEET              |
+| LIBERTY MAGNIFICENT         |
+| LICENSE WEEKEND             |
+| LIES TREATMENT              |
+| LIFE TWISTED                |
+| LIGHTS DEER                 |
+| LION UNCUT                  |
+| LOATHING LEGALLY            |
+| LOCK REAR                   |
+| LOLA AGENT                  |
+| LOLITA WORLD                |
+| LONELY ELEPHANT             |
+| LORD ARIZONA                |
+| LOSE INCH                   |
+| LOSER HUSTLER               |
+| LOST BIRD                   |
+| LOUISIANA HARRY             |
+| LOVE SUICIDES               |
+| LOVELY JINGLE               |
+| LOVER TRUMAN                |
+| LOVERBOY ATTACKS            |
+| LUCK OPUS                   |
+| LUCKY FLYING                |
+| LUKE MUMMY                  |
+| LUST LOCK                   |
+| MADIGAN DORADO              |
+| MADISON TRAP                |
+| MADNESS ATTACKS             |
+| MADRE GABLES                |
+| MAGIC MALLRATS              |
+| MAGNIFICENT CHITTY          |
+| MAGNOLIA FORRESTER          |
+| MAGUIRE APACHE              |
+| MAIDEN HOME                 |
+| MAJESTIC FLOATS             |
+| MAKER GABLES                |
+| MALKOVICH PET               |
+| MALLRATS UNITED             |
+| MALTESE HOPE                |
+| MANCHURIAN CURTAIN          |
+| MANNEQUIN WORST             |
+| MARRIED GO                  |
+| MARS ROMAN                  |
+| MASK PEACH                  |
+| MASKED BUBBLE               |
+| MASSACRE USUAL              |
+| MASSAGE IMAGE               |
+| MATRIX SNOWMAN              |
+| MAUDE MOD                   |
+| MEET CHOCOLATE              |
+| MEMENTO ZOOLANDER           |
+| MENAGERIE RUSHMORE          |
+| MERMAID INSECTS             |
+| METAL ARMAGEDDON            |
+| METROPOLIS COMA             |
+| MICROCOSMOS PARADISE        |
+| MIDNIGHT WESTWARD           |
+| MIDSUMMER GROUNDHOG         |
+| MIGHTY LUCK                 |
+| MILE MULAN                  |
+| MILLION ACE                 |
+| MINDS TRUMAN                |
+| MINE TITANS                 |
+| MINORITY KISS               |
+| MIRACLE VIRTUAL             |
+| MISSION ZOOLANDER           |
+| MIXED DOORS                 |
+| MOB DUFFEL                  |
+| MOCKINGBIRD HOLLYWOOD       |
+| MOD SECRETARY               |
+| MODEL FISH                  |
+| MODERN DORADO               |
+| MONEY HAROLD                |
+| MONSOON CAUSE               |
+| MONSTER SPARTACUS           |
+| MONTEREY LABYRINTH          |
+| MONTEZUMA COMMAND           |
+| MOON BUNCH                  |
+| MOONSHINE CABIN             |
+| MOONWALKER FOOL             |
+| MOSQUITO ARMAGEDDON         |
+| MOTHER OLEANDER             |
+| MOTIONS DETAILS             |
+| MOULIN WAKE                 |
+| MOURNING PURPLE             |
+| MOVIE SHAKESPEARE           |
+| MULAN MOON                  |
+| MULHOLLAND BEAST            |
+| MUMMY CREATURES             |
+| MUPPET MILE                 |
+| MURDER ANTITRUST            |
+| MUSCLE BRIGHT               |
+| MUSIC BOONDOCK              |
+| MUSKETEERS WAIT             |
+| MUSSOLINI SPOILERS          |
+| MYSTIC TRUMAN               |
+| NAME DETECTIVE              |
+| NASH CHOCOLAT               |
+| NATIONAL STORY              |
+| NATURAL STOCK               |
+| NECKLACE OUTBREAK           |
+| NEIGHBORS CHARADE           |
+| NEMO CAMPUS                 |
+| NETWORK PEAK                |
+| NEWSIES STORY               |
+| NEWTON LABYRINTH            |
+| NIGHTMARE CHILL             |
+| NONE SPIKING                |
+| NOON PAPI                   |
+| NORTH TEQUILA               |
+| NORTHWEST POLISH            |
+| NOTORIOUS REUNION           |
+| NOTTING SPEAKEASY           |
+| NOVOCAINE FLIGHT            |
+| NUTS TIES                   |
+| OCTOBER SUBMARINE           |
+| ODDS BOOGIE                 |
+| OKLAHOMA JUMANJI            |
+| OLEANDER CLUE               |
+| OPEN AFRICAN                |
+| OPERATION OPERATION         |
+| OPPOSITE NECKLACE           |
+| OPUS ICE                    |
+| ORANGE GRAPES               |
+| ORDER BETRAYED              |
+| ORIENT CLOSER               |
+| OSCAR GOLD                  |
+| OTHERS SOUP                 |
+| OUTBREAK DIVINE             |
+| OUTFIELD MASSACRE           |
+| OUTLAW HANKY                |
+| OZ LIAISONS                 |
+| PACIFIC AMISTAD             |
+| PACKER MADIGAN              |
+| PAJAMA JAWBREAKER           |
+| PANIC CLUB                  |
+| PANKY SUBMARINE             |
+| PANTHER REDS                |
+| PAPI NECKLACE               |
+| PARADISE SABRINA            |
+| PARIS WEEKEND               |
+| PARK CITIZEN                |
+| PARTY KNOCK                 |
+| PAST SUICIDES               |
+| PATHS CONTROL               |
+| PATIENT SISTER              |
+| PATRIOT ROMAN               |
+| PATTON INTERVIEW            |
+| PAYCHECK WAIT               |
+| PEACH INNOCENT              |
+| PEAK FOREVER                |
+| PEARL DESTINY               |
+| PELICAN COMFORTS            |
+| PERDITION FARGO             |
+| PERFECT GROOVE              |
+| PERSONAL LADYBUGS           |
+| PET HAUNTING                |
+| PHANTOM GLORY               |
+| PHILADELPHIA WIFE           |
+| PIANIST OUTFIELD            |
+| PICKUP DRIVING              |
+| PILOT HOOSIERS              |
+| PINOCCHIO SIMON             |
+| PIRATES ROXANNE             |
+| PITTSBURGH HUNCHBACK        |
+| PITY BOUND                  |
+| PIZZA JUMANJI               |
+| PLATOON INSTINCT            |
+| PLUTO OLEANDER              |
+| POCUS PULP                  |
+| POLISH BROOKLYN             |
+| POLLOCK DELIVERANCE         |
+| POND SEATTLE                |
+| POSEIDON FOREVER            |
+| POTLUCK MIXED               |
+| POTTER CONNECTICUT          |
+| PREJUDICE OLEANDER          |
+| PRESIDENT BANG              |
+| PRIDE ALAMO                 |
+| PRIMARY GLASS               |
+| PRINCESS GIANT              |
+| PRIVATE DROP                |
+| PRIX UNDEFEATED             |
+| PSYCHO SHRUNK               |
+| PULP BEVERLY                |
+| PUNK DIVORCE                |
+| PURE RUNNER                 |
+| PURPLE MOVIE                |
+| QUEEN LUKE                  |
+| QUEST MUSSOLINI             |
+| QUILLS BULL                 |
+| RACER EGG                   |
+| RAGE GAMES                  |
+| RAGING AIRPLANE             |
+| RAIDERS ANTITRUST           |
+| RAINBOW SHOCK               |
+| RANDOM GO                   |
+| RANGE MOONWALKER            |
+| REAP UNFAITHFUL             |
+| REAR TRADING                |
+| REBEL AIRPORT               |
+| RECORDS ZORRO               |
+| REDEMPTION COMFORTS         |
+| REDS POCUS                  |
+| REEF SALUTE                 |
+| REIGN GENTLEMEN             |
+| REMEMBER DIARY              |
+| REQUIEM TYCOON              |
+| RESERVOIR ADAPTATION        |
+| RESURRECTION SILVERADO      |
+| REUNION WITCHES             |
+| RIDER CADDYSHACK            |
+| RIDGEMONT SUBMARINE         |
+| RIGHT CRANES                |
+| RINGS HEARTBREAKERS         |
+| RIVER OUTLAW                |
+| ROAD ROXANNE                |
+| ROBBERS JOON                |
+| ROBBERY BRIGHT              |
+| ROCK INSTINCT               |
+| ROCKETEER MOTHER            |
+| ROCKY WAR                   |
+| ROLLERCOASTER BRINGING      |
+| ROMAN PUNK                  |
+| ROOF CHAMPION               |
+| ROOM ROMAN                  |
+| ROOTS REMEMBER              |
+| ROSES TREASURE              |
+| ROUGE SQUAD                 |
+| ROXANNE REBEL               |
+| RUGRATS SHAKESPEARE         |
+| RULES HUMAN                 |
+| RUN PACIFIC                 |
+| RUNAWAY TENENBAUMS          |
+| RUNNER MADIGAN              |
+| RUSH GOODFELLAS             |
+| RUSHMORE MERMAID            |
+| SABRINA MIDNIGHT            |
+| SADDLE ANTITRUST            |
+| SAGEBRUSH CLUELESS          |
+| SAINTS BRIDE                |
+| SALUTE APOLLO               |
+| SAMURAI LION                |
+| SANTA PARIS                 |
+| SASSY PACKER                |
+| SATISFACTION CONFIDENTIAL   |
+| SATURDAY LAMBS              |
+| SATURN NAME                 |
+| SAVANNAH TOWN               |
+| SCALAWAG DUCK               |
+| SCARFACE BANG               |
+| SCHOOL JACKET               |
+| SCISSORHANDS SLUMS          |
+| SCORPION APOLLO             |
+| SEA VIRGIN                  |
+| SEABISCUIT PUNK             |
+| SEARCHERS WAIT              |
+| SEATTLE EXPECATIONS         |
+| SECRET GROUNDHOG            |
+| SECRETARY ROUGE             |
+| SECRETS PARADISE            |
+| SENSE GREEK                 |
+| SENSIBILITY REAR            |
+| SEVEN SWARM                 |
+| SHAKESPEARE SADDLE          |
+| SHANE DARKNESS              |
+| SHANGHAI TYCOON             |
+| SHAWSHANK BUBBLE            |
+| SHEPHERD MIDSUMMER          |
+| SHINING ROSES               |
+| SHIP WONDERLAND             |
+| SHOCK CABIN                 |
+| SHOOTIST SUPERFLY           |
+| SHOW LORD                   |
+| SHREK LICENSE               |
+| SHRUNK DIVINE               |
+| SIDE ARK                    |
+| SIEGE MADRE                 |
+| SIERRA DIVIDE               |
+| SILENCE KANE                |
+| SILVERADO GOLDFINGER        |
+| SIMON NORTH                 |
+| SINNERS ATLANTIS            |
+| SISTER FREDDY               |
+| SKY MIRACLE                 |
+| SLACKER LIAISONS            |
+| SLEEPING SUSPECTS           |
+| SLEEPLESS MONSOON           |
+| SLEEPY JAPANESE             |
+| SLEUTH ORIENT               |
+| SLING LUKE                  |
+| SLIPPER FIDELITY            |
+| SLUMS DUCK                  |
+| SMILE EARRING               |
+| SMOKING BARBARELLA          |
+| SMOOCHY CONTROL             |
+| SNATCH SLIPPER              |
+| SNATCHERS MONTEZUMA         |
+| SNOWMAN ROLLERCOASTER       |
+| SOLDIERS EVOLUTION          |
+| SOMETHING DUCK              |
+| SONG HEDWIG                 |
+| SONS INTERVIEW              |
+| SORORITY QUEEN              |
+| SOUP WISDOM                 |
+| SOUTH WAIT                  |
+| SPARTACUS CHEAPER           |
+| SPEAKEASY DATE              |
+| SPEED SUIT                  |
+| SPICE SORORITY              |
+| SPIKING ELEMENT             |
+| SPINAL ROCKY                |
+| SPIRIT FLINTSTONES          |
+| SPIRITED CASUALTIES         |
+| SPLASH GUMP                 |
+| SPLENDOR PATTON             |
+| SPOILERS HELLFIGHTERS       |
+| SPY MILE                    |
+| SQUAD FISH                  |
+| STAGE WORLD                 |
+| STAGECOACH ARMAGEDDON       |
+| STALLION SUNDANCE           |
+| STAMPEDE DISTURBING         |
+| STAR OPERATION              |
+| STATE WASTELAND             |
+| STEEL SANTA                 |
+| STEERS ARMAGEDDON           |
+| STEPMOM DREAM               |
+| STING PERSONAL              |
+| STOCK GLASS                 |
+| STONE FIRE                  |
+| STORM HAPPINESS             |
+| STORY SIDE                  |
+| STRAIGHT HOURS              |
+| STRANGELOVE DESIRE          |
+| STRANGER STRANGERS          |
+| STRANGERS GRAFFITI          |
+| STREAK RIDGEMONT            |
+| STREETCAR INTENTIONS        |
+| STRICTLY SCARFACE           |
+| SUBMARINE BED               |
+| SUGAR WONKA                 |
+| SUICIDES SILENCE            |
+| SUIT WALLS                  |
+| SUMMER SCARFACE             |
+| SUN CONFESSIONS             |
+| SUNDANCE INVASION           |
+| SUNRISE LEAGUE              |
+| SUNSET RACER                |
+| SUPER WYOMING               |
+| SUPERFLY TRIP               |
+| SUSPECTS QUILLS             |
+| SWARM GOLD                  |
+| SWEDEN SHINING              |
+| SWEET BROTHERHOOD           |
+| SWEETHEARTS SUSPECTS        |
+| TADPOLE PARK                |
+| TALENTED HOMICIDE           |
+| TARZAN VIDEOTAPE            |
+| TAXI KICK                   |
+| TEEN APOLLO                 |
+| TELEGRAPH VOYAGE            |
+| TELEMARK HEARTBREAKERS      |
+| TEMPLE ATTRACTION           |
+| TENENBAUMS COMMAND          |
+| TEQUILA PAST                |
+| TERMINATOR CLUB             |
+| TEXAS WATCH                 |
+| THEORY MERMAID              |
+| THIEF PELICAN               |
+| THIN SAGEBRUSH              |
+| TIES HUNGER                 |
+| TIGHTS DAWN                 |
+| TIMBERLAND SKY              |
+| TITANIC BOONDOCK            |
+| TITANS JERK                 |
+| TOMATOES HELLFIGHTERS       |
+| TOMORROW HUSTLER            |
+| TOOTSIE PILOT               |
+| TORQUE BOUND                |
+| TOURIST PELICAN             |
+| TOWERS HURRICANE            |
+| TOWN ARK                    |
+| TRACY CIDER                 |
+| TRADING PINOCCHIO           |
+| TRAFFIC HOBBIT              |
+| TRAIN BUNCH                 |
+| TRAINSPOTTING STRANGERS     |
+| TRAMP OTHERS                |
+| TRANSLATION SUMMER          |
+| TRAP GUYS                   |
+| TREASURE COMMAND            |
+| TREATMENT JEKYLL            |
+| TRIP NEWTON                 |
+| TROJAN TOMORROW             |
+| TROOPERS METAL              |
+| TROUBLE DATE                |
+| TRUMAN CRAZY                |
+| TURN STAR                   |
+| TUXEDO MILE                 |
+| TWISTED PIRATES             |
+| TYCOON GATHERING            |
+| UNBREAKABLE KARATE          |
+| UNCUT SUICIDES              |
+| UNDEFEATED DALMATIONS       |
+| UNFAITHFUL KILL             |
+| UNFORGIVEN ZOOLANDER        |
+| UNITED PILOT                |
+| UNTOUCHABLES SUNRISE        |
+| UPRISING UPTOWN             |
+| UPTOWN YOUNG                |
+| USUAL UNTOUCHABLES          |
+| VACATION BOONDOCK           |
+| VALENTINE VANISHING         |
+| VALLEY PACKER               |
+| VAMPIRE WHALE               |
+| VANILLA DAY                 |
+| VANISHED GARDEN             |
+| VANISHING ROCKY             |
+| VARSITY TRIP                |
+| VELVET TERMINATOR           |
+| VERTIGO NORTHWEST           |
+| VICTORY ACADEMY             |
+| VIDEOTAPE ARSENIC           |
+| VIETNAM SMOOCHY             |
+| VILLAIN DESPERATE           |
+| VIRGIN DAISY                |
+| VIRGINIAN PLUTO             |
+| VIRTUAL SPOILERS            |
+| VISION TORQUE               |
+| VOICE PEACH                 |
+| VOLCANO TEXAS               |
+| VOLUME HOUSE                |
+| VOYAGE LEGALLY              |
+| WAGON JAWS                  |
+| WAIT CIDER                  |
+| WAKE JAWS                   |
+| WALLS ARTIST                |
+| WANDA CHAMBER               |
+| WAR NOTTING                 |
+| WARDROBE PHANTOM            |
+| WARLOCK WEREWOLF            |
+| WARS PLUTO                  |
+| WASH HEAVENLY               |
+| WASTELAND DIVINE            |
+| WATCH TRACY                 |
+| WATERFRONT DELIVERANCE      |
+| WATERSHIP FRONTIER          |
+| WEDDING APOLLO              |
+| WEEKEND PERSONAL            |
+| WEREWOLF LOLA               |
+| WEST LION                   |
+| WESTWARD SEABISCUIT         |
+| WHALE BIKINI                |
+| WHISPERER GIANT             |
+| WIFE TURN                   |
+| WILD APOLLO                 |
+| WILLOW TRACY                |
+| WIND PHANTOM                |
+| WINDOW SIDE                 |
+| WISDOM WORKER               |
+| WITCHES PANIC               |
+| WIZARD COLDBLOODED          |
+| WOLVES DESIRE               |
+| WOMEN DORADO                |
+| WON DARES                   |
+| WONDERFUL DROP              |
+| WONDERLAND CHRISTMAS        |
+| WONKA SEA                   |
+| WORDS HUNTER                |
+| WORKER TARZAN               |
+| WORKING MICROCOSMOS         |
+| WORLD LEATHERNECKS          |
+| WORST BANGER                |
+| WRATH MILE                  |
+| WRONG BEHAVIOR              |
+| WYOMING STORM               |
+| YENTL IDAHO                 |
+| YOUNG LANGUAGE              |
+| YOUTH KICK                  |
+| ZHIVAGO CORE                |
+| ZOOLANDER FICTION           |
+| ZORRO ARK                   |
++-----------------------------+
+1000 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table category select * from sakila.category;
+Query OK, 16 rows affected (0.0130 sec)
+MySQL Shell 8.0.38
+
+Copyright (c) 2016, 2024, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect -m root@localhost
+\connect -m root@localhost: unknown option -m
+\connect [--mx|--mysqlx|--mc|--mysql] [--ssh <sshuri>] <URI>
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 13
+Server version: 8.0.39 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc databases
+                                       -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'databases' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| tbd_automovil      |
+| tbd_el             |
+| world              |
++--------------------+
+8 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table Prueba(
+                                       -> id int auto_increment key,
+                                       -> nombre varchar(50),
+                                       -> apellido varchar(50) not null,
+                                       -> edad int not null,
+                                       -> genero enum("0","1","2","3"));
+Query OK, 0 rows affected (0.0085 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from prueba;
+Empty set (0.0007 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from Prueba;
+Empty set (0.0006 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > insert into prueba(apellido, edad)
+                                       -> values("xxxx",10),("sbfhkjashdiuha",50),
+                                       -> ("zzzzzzzz",30),("biyufiaf",20);
+Query OK, 4 rows affected (0.0030 sec)
+
+Records: 4  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from Prueba;
++----+--------+----------------+------+--------+
+| id | nombre | apellido       | edad | genero |
++----+--------+----------------+------+--------+
+|  1 | NULL   | xxxx           |   10 | NULL   |
+|  2 | NULL   | sbfhkjashdiuha |   50 | NULL   |
+|  3 | NULL   | zzzzzzzz       |   30 | NULL   |
+|  4 | NULL   | biyufiaf       |   20 | NULL   |
++----+--------+----------------+------+--------+
+4 rows in set (0.0006 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 14
+Server version: 8.0.39 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > show tables;
++----------------------------+
+| Tables_in_sakila           |
++----------------------------+
+| actor                      |
+| actor_info                 |
+| address                    |
+| category                   |
+| city                       |
+| country                    |
+| customer                   |
+| customer_list              |
+| film                       |
+| film_actor                 |
+| film_category              |
+| film_list                  |
+| film_text                  |
+| inventory                  |
+| language                   |
+| nicer_but_slower_film_list |
+| payment                    |
+| rental                     |
+| sales_by_film_category     |
+| sales_by_store             |
+| staff                      |
+| staff_list                 |
+| store                      |
++----------------------------+
+23 rows in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0092 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select count(*) from actor;
++----------+
+| count(*) |
++----------+
+|      200 |
++----------+
+1 row in set (0.0239 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from actor limit 10;
++----------+------------+--------------+---------------------+
+| actor_id | first_name | last_name    | last_update         |
++----------+------------+--------------+---------------------+
+|        1 | PENELOPE   | GUINESS      | 2006-02-15 04:34:33 |
+|        2 | NICK       | WAHLBERG     | 2006-02-15 04:34:33 |
+|        3 | ED         | CHASE        | 2006-02-15 04:34:33 |
+|        4 | JENNIFER   | DAVIS        | 2006-02-15 04:34:33 |
+|        5 | JOHNNY     | LOLLOBRIGIDA | 2006-02-15 04:34:33 |
+|        6 | BETTE      | NICHOLSON    | 2006-02-15 04:34:33 |
+|        7 | GRACE      | MOSTEL       | 2006-02-15 04:34:33 |
+|        8 | MATTHEW    | JOHANSSON    | 2006-02-15 04:34:33 |
+|        9 | JOE        | SWANK        | 2006-02-15 04:34:33 |
+|       10 | CHRISTIAN  | GABLE        | 2006-02-15 04:34:33 |
++----------+------------+--------------+---------------------+
+10 rows in set (0.0038 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table actor like sakila.actor;
+Query OK, 0 rows affected (0.0447 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show tables;
++------------------+
+| Tables_in_tbd_el |
++------------------+
+| actor            |
+| automoviles      |
+| client           |
+| docente          |
+| mascotas         |
+| peliculas        |
+| playeras         |
+| student          |
+| tv               |
++------------------+
+9 rows in set (0.0019 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc actor;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| actor_id    | smallint unsigned | NO   | PRI | NULL              | auto_increment                                |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   | MUL | NULL              |                                               |
+| last_update | timestamp         | NO   |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+4 rows in set (0.0026 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select count(*) from actor;
++----------+
+| count(*) |
++----------+
+|        0 |
++----------+
+1 row in set (0.0044 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from customer limit 10;
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+| customer_id | store_id | first_name | last_name | email                               | address_id | active | create_date         | last_update         |
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+|           1 |        1 | MARY       | SMITH     | MARY.SMITH@sakilacustomer.org       |          5 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           2 |        1 | PATRICIA   | JOHNSON   | PATRICIA.JOHNSON@sakilacustomer.org |          6 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           3 |        1 | LINDA      | WILLIAMS  | LINDA.WILLIAMS@sakilacustomer.org   |          7 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           4 |        2 | BARBARA    | JONES     | BARBARA.JONES@sakilacustomer.org    |          8 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           5 |        1 | ELIZABETH  | BROWN     | ELIZABETH.BROWN@sakilacustomer.org  |          9 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           6 |        2 | JENNIFER   | DAVIS     | JENNIFER.DAVIS@sakilacustomer.org   |         10 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           7 |        1 | MARIA      | MILLER    | MARIA.MILLER@sakilacustomer.org     |         11 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           8 |        2 | SUSAN      | WILSON    | SUSAN.WILSON@sakilacustomer.org     |         12 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           9 |        2 | MARGARET   | MOORE     | MARGARET.MOORE@sakilacustomer.org   |         13 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          10 |        1 | DOROTHY    | TAYLOR    | DOROTHY.TAYLOR@sakilacustomer.org   |         14 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+10 rows in set (0.0302 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table client as
+                                       -> select * from sakila.customer;
+ERROR: 1050 (42S01): Table 'client' already exists
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table clientes as
+                                       -> select * from sakila.customer;
+Query OK, 599 rows affected (0.0417 sec)
+
+Records: 599  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc clientes;
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| Field       | Type              | Null | Key | Default           | Extra                                         |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+| customer_id | smallint unsigned | NO   |     | 0                 |                                               |
+| store_id    | tinyint unsigned  | NO   |     | NULL              |                                               |
+| first_name  | varchar(45)       | NO   |     | NULL              |                                               |
+| last_name   | varchar(45)       | NO   |     | NULL              |                                               |
+| email       | varchar(50)       | YES  |     | NULL              |                                               |
+| address_id  | smallint unsigned | NO   |     | NULL              |                                               |
+| active      | tinyint(1)        | NO   |     | 1                 |                                               |
+| create_date | datetime          | NO   |     | NULL              |                                               |
+| last_update | timestamp         | YES  |     | CURRENT_TIMESTAMP | DEFAULT_GENERATED on update CURRENT_TIMESTAMP |
++-------------+-------------------+------+-----+-------------------+-----------------------------------------------+
+9 rows in set (0.0034 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from country;
++------------+---------------------------------------+---------------------+
+| country_id | country                               | last_update         |
++------------+---------------------------------------+---------------------+
+|          1 | Afghanistan                           | 2006-02-15 04:44:00 |
+|          2 | Algeria                               | 2006-02-15 04:44:00 |
+|          3 | American Samoa                        | 2006-02-15 04:44:00 |
+|          4 | Angola                                | 2006-02-15 04:44:00 |
+|          5 | Anguilla                              | 2006-02-15 04:44:00 |
+|          6 | Argentina                             | 2006-02-15 04:44:00 |
+|          7 | Armenia                               | 2006-02-15 04:44:00 |
+|          8 | Australia                             | 2006-02-15 04:44:00 |
+|          9 | Austria                               | 2006-02-15 04:44:00 |
+|         10 | Azerbaijan                            | 2006-02-15 04:44:00 |
+|         11 | Bahrain                               | 2006-02-15 04:44:00 |
+|         12 | Bangladesh                            | 2006-02-15 04:44:00 |
+|         13 | Belarus                               | 2006-02-15 04:44:00 |
+|         14 | Bolivia                               | 2006-02-15 04:44:00 |
+|         15 | Brazil                                | 2006-02-15 04:44:00 |
+|         16 | Brunei                                | 2006-02-15 04:44:00 |
+|         17 | Bulgaria                              | 2006-02-15 04:44:00 |
+|         18 | Cambodia                              | 2006-02-15 04:44:00 |
+|         19 | Cameroon                              | 2006-02-15 04:44:00 |
+|         20 | Canada                                | 2006-02-15 04:44:00 |
+|         21 | Chad                                  | 2006-02-15 04:44:00 |
+|         22 | Chile                                 | 2006-02-15 04:44:00 |
+|         23 | China                                 | 2006-02-15 04:44:00 |
+|         24 | Colombia                              | 2006-02-15 04:44:00 |
+|         25 | Congo, The Democratic Republic of the | 2006-02-15 04:44:00 |
+|         26 | Czech Republic                        | 2006-02-15 04:44:00 |
+|         27 | Dominican Republic                    | 2006-02-15 04:44:00 |
+|         28 | Ecuador                               | 2006-02-15 04:44:00 |
+|         29 | Egypt                                 | 2006-02-15 04:44:00 |
+|         30 | Estonia                               | 2006-02-15 04:44:00 |
+|         31 | Ethiopia                              | 2006-02-15 04:44:00 |
+|         32 | Faroe Islands                         | 2006-02-15 04:44:00 |
+|         33 | Finland                               | 2006-02-15 04:44:00 |
+|         34 | France                                | 2006-02-15 04:44:00 |
+|         35 | French Guiana                         | 2006-02-15 04:44:00 |
+|         36 | French Polynesia                      | 2006-02-15 04:44:00 |
+|         37 | Gambia                                | 2006-02-15 04:44:00 |
+|         38 | Germany                               | 2006-02-15 04:44:00 |
+|         39 | Greece                                | 2006-02-15 04:44:00 |
+|         40 | Greenland                             | 2006-02-15 04:44:00 |
+|         41 | Holy See (Vatican City State)         | 2006-02-15 04:44:00 |
+|         42 | Hong Kong                             | 2006-02-15 04:44:00 |
+|         43 | Hungary                               | 2006-02-15 04:44:00 |
+|         44 | India                                 | 2006-02-15 04:44:00 |
+|         45 | Indonesia                             | 2006-02-15 04:44:00 |
+|         46 | Iran                                  | 2006-02-15 04:44:00 |
+|         47 | Iraq                                  | 2006-02-15 04:44:00 |
+|         48 | Israel                                | 2006-02-15 04:44:00 |
+|         49 | Italy                                 | 2006-02-15 04:44:00 |
+|         50 | Japan                                 | 2006-02-15 04:44:00 |
+|         51 | Kazakstan                             | 2006-02-15 04:44:00 |
+|         52 | Kenya                                 | 2006-02-15 04:44:00 |
+|         53 | Kuwait                                | 2006-02-15 04:44:00 |
+|         54 | Latvia                                | 2006-02-15 04:44:00 |
+|         55 | Liechtenstein                         | 2006-02-15 04:44:00 |
+|         56 | Lithuania                             | 2006-02-15 04:44:00 |
+|         57 | Madagascar                            | 2006-02-15 04:44:00 |
+|         58 | Malawi                                | 2006-02-15 04:44:00 |
+|         59 | Malaysia                              | 2006-02-15 04:44:00 |
+|         60 | Mexico                                | 2006-02-15 04:44:00 |
+|         61 | Moldova                               | 2006-02-15 04:44:00 |
+|         62 | Morocco                               | 2006-02-15 04:44:00 |
+|         63 | Mozambique                            | 2006-02-15 04:44:00 |
+|         64 | Myanmar                               | 2006-02-15 04:44:00 |
+|         65 | Nauru                                 | 2006-02-15 04:44:00 |
+|         66 | Nepal                                 | 2006-02-15 04:44:00 |
+|         67 | Netherlands                           | 2006-02-15 04:44:00 |
+|         68 | New Zealand                           | 2006-02-15 04:44:00 |
+|         69 | Nigeria                               | 2006-02-15 04:44:00 |
+|         70 | North Korea                           | 2006-02-15 04:44:00 |
+|         71 | Oman                                  | 2006-02-15 04:44:00 |
+|         72 | Pakistan                              | 2006-02-15 04:44:00 |
+|         73 | Paraguay                              | 2006-02-15 04:44:00 |
+|         74 | Peru                                  | 2006-02-15 04:44:00 |
+|         75 | Philippines                           | 2006-02-15 04:44:00 |
+|         76 | Poland                                | 2006-02-15 04:44:00 |
+|         77 | Puerto Rico                           | 2006-02-15 04:44:00 |
+|         78 | Romania                               | 2006-02-15 04:44:00 |
+|         79 | Réunion                               | 2006-02-15 04:44:00 |
+|         80 | Russian Federation                    | 2006-02-15 04:44:00 |
+|         81 | Saint Vincent and the Grenadines      | 2006-02-15 04:44:00 |
+|         82 | Saudi Arabia                          | 2006-02-15 04:44:00 |
+|         83 | Senegal                               | 2006-02-15 04:44:00 |
+|         84 | Slovakia                              | 2006-02-15 04:44:00 |
+|         85 | South Africa                          | 2006-02-15 04:44:00 |
+|         86 | South Korea                           | 2006-02-15 04:44:00 |
+|         87 | Spain                                 | 2006-02-15 04:44:00 |
+|         88 | Sri Lanka                             | 2006-02-15 04:44:00 |
+|         89 | Sudan                                 | 2006-02-15 04:44:00 |
+|         90 | Sweden                                | 2006-02-15 04:44:00 |
+|         91 | Switzerland                           | 2006-02-15 04:44:00 |
+|         92 | Taiwan                                | 2006-02-15 04:44:00 |
+|         93 | Tanzania                              | 2006-02-15 04:44:00 |
+|         94 | Thailand                              | 2006-02-15 04:44:00 |
+|         95 | Tonga                                 | 2006-02-15 04:44:00 |
+|         96 | Tunisia                               | 2006-02-15 04:44:00 |
+|         97 | Turkey                                | 2006-02-15 04:44:00 |
+|         98 | Turkmenistan                          | 2006-02-15 04:44:00 |
+|         99 | Tuvalu                                | 2006-02-15 04:44:00 |
+|        100 | Ukraine                               | 2006-02-15 04:44:00 |
+|        101 | United Arab Emirates                  | 2006-02-15 04:44:00 |
+|        102 | United Kingdom                        | 2006-02-15 04:44:00 |
+|        103 | United States                         | 2006-02-15 04:44:00 |
+|        104 | Venezuela                             | 2006-02-15 04:44:00 |
+|        105 | Vietnam                               | 2006-02-15 04:44:00 |
+|        106 | Virgin Islands, U.S.                  | 2006-02-15 04:44:00 |
+|        107 | Yemen                                 | 2006-02-15 04:44:00 |
+|        108 | Yugoslavia                            | 2006-02-15 04:44:00 |
+|        109 | Zambia                                | 2006-02-15 04:44:00 |
++------------+---------------------------------------+---------------------+
+109 rows in set (0.0312 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use tbd_el;
+Default schema set to `tbd_el`.
+Fetching global names, object names from `tbd_el` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table pais as
+                                       -> select * from sakila.country;
+Query OK, 109 rows affected (0.0026 sec)
+
+Records: 109  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show tables;
++------------------+
+| Tables_in_tbd_el |
++------------------+
+| actor            |
+| automoviles      |
+| client           |
+| clientes         |
+| docente          |
+| mascotas         |
+| peliculas        |
+| playeras         |
+| student          |
+| tv               |
++------------------+
+10 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from pais;
++------------+---------------------------------------+---------------------+
+| country_id | country                               | last_update         |
++------------+---------------------------------------+---------------------+
+|          1 | Afghanistan                           | 2006-02-15 04:44:00 |
+|          2 | Algeria                               | 2006-02-15 04:44:00 |
+|          3 | American Samoa                        | 2006-02-15 04:44:00 |
+|          4 | Angola                                | 2006-02-15 04:44:00 |
+|          5 | Anguilla                              | 2006-02-15 04:44:00 |
+|          6 | Argentina                             | 2006-02-15 04:44:00 |
+|          7 | Armenia                               | 2006-02-15 04:44:00 |
+|          8 | Australia                             | 2006-02-15 04:44:00 |
+|          9 | Austria                               | 2006-02-15 04:44:00 |
+|         10 | Azerbaijan                            | 2006-02-15 04:44:00 |
+|         11 | Bahrain                               | 2006-02-15 04:44:00 |
+|         12 | Bangladesh                            | 2006-02-15 04:44:00 |
+|         13 | Belarus                               | 2006-02-15 04:44:00 |
+|         14 | Bolivia                               | 2006-02-15 04:44:00 |
+|         15 | Brazil                                | 2006-02-15 04:44:00 |
+|         16 | Brunei                                | 2006-02-15 04:44:00 |
+|         17 | Bulgaria                              | 2006-02-15 04:44:00 |
+|         18 | Cambodia                              | 2006-02-15 04:44:00 |
+|         19 | Cameroon                              | 2006-02-15 04:44:00 |
+|         20 | Canada                                | 2006-02-15 04:44:00 |
+|         21 | Chad                                  | 2006-02-15 04:44:00 |
+|         22 | Chile                                 | 2006-02-15 04:44:00 |
+|         23 | China                                 | 2006-02-15 04:44:00 |
+|         24 | Colombia                              | 2006-02-15 04:44:00 |
+|         25 | Congo, The Democratic Republic of the | 2006-02-15 04:44:00 |
+|         26 | Czech Republic                        | 2006-02-15 04:44:00 |
+|         27 | Dominican Republic                    | 2006-02-15 04:44:00 |
+|         28 | Ecuador                               | 2006-02-15 04:44:00 |
+|         29 | Egypt                                 | 2006-02-15 04:44:00 |
+|         30 | Estonia                               | 2006-02-15 04:44:00 |
+|         31 | Ethiopia                              | 2006-02-15 04:44:00 |
+|         32 | Faroe Islands                         | 2006-02-15 04:44:00 |
+|         33 | Finland                               | 2006-02-15 04:44:00 |
+|         34 | France                                | 2006-02-15 04:44:00 |
+|         35 | French Guiana                         | 2006-02-15 04:44:00 |
+|         36 | French Polynesia                      | 2006-02-15 04:44:00 |
+|         37 | Gambia                                | 2006-02-15 04:44:00 |
+|         38 | Germany                               | 2006-02-15 04:44:00 |
+|         39 | Greece                                | 2006-02-15 04:44:00 |
+|         40 | Greenland                             | 2006-02-15 04:44:00 |
+|         41 | Holy See (Vatican City State)         | 2006-02-15 04:44:00 |
+|         42 | Hong Kong                             | 2006-02-15 04:44:00 |
+|         43 | Hungary                               | 2006-02-15 04:44:00 |
+|         44 | India                                 | 2006-02-15 04:44:00 |
+|         45 | Indonesia                             | 2006-02-15 04:44:00 |
+|         46 | Iran                                  | 2006-02-15 04:44:00 |
+|         47 | Iraq                                  | 2006-02-15 04:44:00 |
+|         48 | Israel                                | 2006-02-15 04:44:00 |
+|         49 | Italy                                 | 2006-02-15 04:44:00 |
+|         50 | Japan                                 | 2006-02-15 04:44:00 |
+|         51 | Kazakstan                             | 2006-02-15 04:44:00 |
+|         52 | Kenya                                 | 2006-02-15 04:44:00 |
+|         53 | Kuwait                                | 2006-02-15 04:44:00 |
+|         54 | Latvia                                | 2006-02-15 04:44:00 |
+|         55 | Liechtenstein                         | 2006-02-15 04:44:00 |
+|         56 | Lithuania                             | 2006-02-15 04:44:00 |
+|         57 | Madagascar                            | 2006-02-15 04:44:00 |
+|         58 | Malawi                                | 2006-02-15 04:44:00 |
+|         59 | Malaysia                              | 2006-02-15 04:44:00 |
+|         60 | Mexico                                | 2006-02-15 04:44:00 |
+|         61 | Moldova                               | 2006-02-15 04:44:00 |
+|         62 | Morocco                               | 2006-02-15 04:44:00 |
+|         63 | Mozambique                            | 2006-02-15 04:44:00 |
+|         64 | Myanmar                               | 2006-02-15 04:44:00 |
+|         65 | Nauru                                 | 2006-02-15 04:44:00 |
+|         66 | Nepal                                 | 2006-02-15 04:44:00 |
+|         67 | Netherlands                           | 2006-02-15 04:44:00 |
+|         68 | New Zealand                           | 2006-02-15 04:44:00 |
+|         69 | Nigeria                               | 2006-02-15 04:44:00 |
+|         70 | North Korea                           | 2006-02-15 04:44:00 |
+|         71 | Oman                                  | 2006-02-15 04:44:00 |
+|         72 | Pakistan                              | 2006-02-15 04:44:00 |
+|         73 | Paraguay                              | 2006-02-15 04:44:00 |
+|         74 | Peru                                  | 2006-02-15 04:44:00 |
+|         75 | Philippines                           | 2006-02-15 04:44:00 |
+|         76 | Poland                                | 2006-02-15 04:44:00 |
+|         77 | Puerto Rico                           | 2006-02-15 04:44:00 |
+|         78 | Romania                               | 2006-02-15 04:44:00 |
+|         79 | Réunion                               | 2006-02-15 04:44:00 |
+|         80 | Russian Federation                    | 2006-02-15 04:44:00 |
+|         81 | Saint Vincent and the Grenadines      | 2006-02-15 04:44:00 |
+|         82 | Saudi Arabia                          | 2006-02-15 04:44:00 |
+|         83 | Senegal                               | 2006-02-15 04:44:00 |
+|         84 | Slovakia                              | 2006-02-15 04:44:00 |
+|         85 | South Africa                          | 2006-02-15 04:44:00 |
+|         86 | South Korea                           | 2006-02-15 04:44:00 |
+|         87 | Spain                                 | 2006-02-15 04:44:00 |
+|         88 | Sri Lanka                             | 2006-02-15 04:44:00 |
+|         89 | Sudan                                 | 2006-02-15 04:44:00 |
+|         90 | Sweden                                | 2006-02-15 04:44:00 |
+|         91 | Switzerland                           | 2006-02-15 04:44:00 |
+|         92 | Taiwan                                | 2006-02-15 04:44:00 |
+|         93 | Tanzania                              | 2006-02-15 04:44:00 |
+|         94 | Thailand                              | 2006-02-15 04:44:00 |
+|         95 | Tonga                                 | 2006-02-15 04:44:00 |
+|         96 | Tunisia                               | 2006-02-15 04:44:00 |
+|         97 | Turkey                                | 2006-02-15 04:44:00 |
+|         98 | Turkmenistan                          | 2006-02-15 04:44:00 |
+|         99 | Tuvalu                                | 2006-02-15 04:44:00 |
+|        100 | Ukraine                               | 2006-02-15 04:44:00 |
+|        101 | United Arab Emirates                  | 2006-02-15 04:44:00 |
+|        102 | United Kingdom                        | 2006-02-15 04:44:00 |
+|        103 | United States                         | 2006-02-15 04:44:00 |
+|        104 | Venezuela                             | 2006-02-15 04:44:00 |
+|        105 | Vietnam                               | 2006-02-15 04:44:00 |
+|        106 | Virgin Islands, U.S.                  | 2006-02-15 04:44:00 |
+|        107 | Yemen                                 | 2006-02-15 04:44:00 |
+|        108 | Yugoslavia                            | 2006-02-15 04:44:00 |
+|        109 | Zambia                                | 2006-02-15 04:44:00 |
++------------+---------------------------------------+---------------------+
+109 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table like sakila.category;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'like sakila.category' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table film1 as
+                                       -> select * from sakila.film;
+Query OK, 1000 rows affected (0.0749 sec)
+
+Records: 1000  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary film2 as
+                                       -> select title * from sakila.film;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'film2 as
+select title * from sakila.film' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table film2 as select title * from sakila.film;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from sakila.film' at line 1
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create table film2 as select title from sakila.film;
+Query OK, 1000 rows affected (0.0375 sec)
+
+Records: 1000  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  tbd_el  SQL > show tables;
++------------------+
+| Tables_in_tbd_el |
++------------------+
+| actor            |
+| automoviles      |
+| client           |
+| clientes         |
+| docente          |
+| film1            |
+| film2            |
+| mascotas         |
+| peliculas        |
+| playeras         |
+| student          |
+| tv               |
++------------------+
+12 rows in set (0.0015 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > desc film2;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| title | varchar(128) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+1 row in set (0.0022 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > select * from film2;
++-----------------------------+
+| title                       |
++-----------------------------+
+| ACADEMY DINOSAUR            |
+| ACE GOLDFINGER              |
+| ADAPTATION HOLES            |
+| AFFAIR PREJUDICE            |
+| AFRICAN EGG                 |
+| AGENT TRUMAN                |
+| AIRPLANE SIERRA             |
+| AIRPORT POLLOCK             |
+| ALABAMA DEVIL               |
+| ALADDIN CALENDAR            |
+| ALAMO VIDEOTAPE             |
+| ALASKA PHANTOM              |
+| ALI FOREVER                 |
+| ALICE FANTASIA              |
+| ALIEN CENTER                |
+| ALLEY EVOLUTION             |
+| ALONE TRIP                  |
+| ALTER VICTORY               |
+| AMADEUS HOLY                |
+| AMELIE HELLFIGHTERS         |
+| AMERICAN CIRCUS             |
+| AMISTAD MIDSUMMER           |
+| ANACONDA CONFESSIONS        |
+| ANALYZE HOOSIERS            |
+| ANGELS LIFE                 |
+| ANNIE IDENTITY              |
+| ANONYMOUS HUMAN             |
+| ANTHEM LUKE                 |
+| ANTITRUST TOMATOES          |
+| ANYTHING SAVANNAH           |
+| APACHE DIVINE               |
+| APOCALYPSE FLAMINGOS        |
+| APOLLO TEEN                 |
+| ARABIA DOGMA                |
+| ARACHNOPHOBIA ROLLERCOASTER |
+| ARGONAUTS TOWN              |
+| ARIZONA BANG                |
+| ARK RIDGEMONT               |
+| ARMAGEDDON LOST             |
+| ARMY FLINTSTONES            |
+| ARSENIC INDEPENDENCE        |
+| ARTIST COLDBLOODED          |
+| ATLANTIS CAUSE              |
+| ATTACKS HATE                |
+| ATTRACTION NEWTON           |
+| AUTUMN CROW                 |
+| BABY HALL                   |
+| BACKLASH UNDEFEATED         |
+| BADMAN DAWN                 |
+| BAKED CLEOPATRA             |
+| BALLOON HOMEWARD            |
+| BALLROOM MOCKINGBIRD        |
+| BANG KWAI                   |
+| BANGER PINOCCHIO            |
+| BARBARELLA STREETCAR        |
+| BAREFOOT MANCHURIAN         |
+| BASIC EASY                  |
+| BEACH HEARTBREAKERS         |
+| BEAR GRACELAND              |
+| BEAST HUNCHBACK             |
+| BEAUTY GREASE               |
+| BED HIGHBALL                |
+| BEDAZZLED MARRIED           |
+| BEETHOVEN EXORCIST          |
+| BEHAVIOR RUNAWAY            |
+| BENEATH RUSH                |
+| BERETS AGENT                |
+| BETRAYED REAR               |
+| BEVERLY OUTLAW              |
+| BIKINI BORROWERS            |
+| BILKO ANONYMOUS             |
+| BILL OTHERS                 |
+| BINGO TALENTED              |
+| BIRCH ANTITRUST             |
+| BIRD INDEPENDENCE           |
+| BIRDCAGE CASPER             |
+| BIRDS PERDITION             |
+| BLACKOUT PRIVATE            |
+| BLADE POLISH                |
+| BLANKET BEVERLY             |
+| BLINDNESS GUN               |
+| BLOOD ARGONAUTS             |
+| BLUES INSTINCT              |
+| BOILED DARES                |
+| BONNIE HOLOCAUST            |
+| BOOGIE AMELIE               |
+| BOONDOCK BALLROOM           |
+| BORN SPINAL                 |
+| BORROWERS BEDAZZLED         |
+| BOULEVARD MOB               |
+| BOUND CHEAPER               |
+| BOWFINGER GABLES            |
+| BRANNIGAN SUNRISE           |
+| BRAVEHEART HUMAN            |
+| BREAKFAST GOLDFINGER        |
+| BREAKING HOME               |
+| BRIDE INTRIGUE              |
+| BRIGHT ENCOUNTERS           |
+| BRINGING HYSTERICAL         |
+| BROOKLYN DESERT             |
+| BROTHERHOOD BLANKET         |
+| BUBBLE GROSSE               |
+| BUCKET BROTHERHOOD          |
+| BUGSY SONG                  |
+| BULL SHAWSHANK              |
+| BULWORTH COMMANDMENTS       |
+| BUNCH MINDS                 |
+| BUTCH PANTHER               |
+| BUTTERFLY CHOCOLAT          |
+| CABIN FLASH                 |
+| CADDYSHACK JEDI             |
+| CALENDAR GUNFIGHT           |
+| CALIFORNIA BIRDS            |
+| CAMELOT VACATION            |
+| CAMPUS REMEMBER             |
+| CANDIDATE PERDITION         |
+| CANDLES GRAPES              |
+| CANYON STOCK                |
+| CAPER MOTIONS               |
+| CARIBBEAN LIBERTY           |
+| CAROL TEXAS                 |
+| CARRIE BUNCH                |
+| CASABLANCA SUPER            |
+| CASPER DRAGONFLY            |
+| CASSIDY WYOMING             |
+| CASUALTIES ENCINO           |
+| CAT CONEHEADS               |
+| CATCH AMISTAD               |
+| CAUSE DATE                  |
+| CELEBRITY HORN              |
+| CENTER DINOSAUR             |
+| CHAINSAW UPTOWN             |
+| CHAMBER ITALIAN             |
+| CHAMPION FLATLINERS         |
+| CHANCE RESURRECTION         |
+| CHAPLIN LICENSE             |
+| CHARADE DUFFEL              |
+| CHARIOTS CONSPIRACY         |
+| CHASING FIGHT               |
+| CHEAPER CLYDE               |
+| CHICAGO NORTH               |
+| CHICKEN HELLFIGHTERS        |
+| CHILL LUCK                  |
+| CHINATOWN GLADIATOR         |
+| CHISUM BEHAVIOR             |
+| CHITTY LOCK                 |
+| CHOCOLAT HARRY              |
+| CHOCOLATE DUCK              |
+| CHRISTMAS MOONSHINE         |
+| CIDER DESIRE                |
+| CINCINATTI WHISPERER        |
+| CIRCUS YOUTH                |
+| CITIZEN SHREK               |
+| CLASH FREDDY                |
+| CLEOPATRA DEVIL             |
+| CLERKS ANGELS               |
+| CLOCKWORK PARADISE          |
+| CLONES PINOCCHIO            |
+| CLOSER BANG                 |
+| CLUB GRAFFITI               |
+| CLUE GRAIL                  |
+| CLUELESS BUCKET             |
+| CLYDE THEORY                |
+| COAST RAINBOW               |
+| COLDBLOODED DARLING         |
+| COLOR PHILADELPHIA          |
+| COMA HEAD                   |
+| COMANCHEROS ENEMY           |
+| COMFORTS RUSH               |
+| COMMAND DARLING             |
+| COMMANDMENTS EXPRESS        |
+| CONEHEADS SMOOCHY           |
+| CONFESSIONS MAGUIRE         |
+| CONFIDENTIAL INTERVIEW      |
+| CONFUSED CANDLES            |
+| CONGENIALITY QUEST          |
+| CONNECTICUT TRAMP           |
+| CONNECTION MICROCOSMOS      |
+| CONQUERER NUTS              |
+| CONSPIRACY SPIRIT           |
+| CONTACT ANONYMOUS           |
+| CONTROL ANTHEM              |
+| CONVERSATION DOWNHILL       |
+| CORE SUIT                   |
+| COWBOY DOOM                 |
+| CRAFT OUTFIELD              |
+| CRANES RESERVOIR            |
+| CRAZY HOME                  |
+| CREATURES SHAKESPEARE       |
+| CREEPERS KANE               |
+| CROOKED FROGMEN             |
+| CROSSING DIVORCE            |
+| CROSSROADS CASUALTIES       |
+| CROW GREASE                 |
+| CROWDS TELEMARK             |
+| CRUELTY UNFORGIVEN          |
+| CRUSADE HONEY               |
+| CRYSTAL BREAKING            |
+| CUPBOARD SINNERS            |
+| CURTAIN VIDEOTAPE           |
+| CYCLONE FAMILY              |
+| DADDY PITTSBURGH            |
+| DAISY MENAGERIE             |
+| DALMATIONS SWEDEN           |
+| DANCES NONE                 |
+| DANCING FEVER               |
+| DANGEROUS UPTOWN            |
+| DARES PLUTO                 |
+| DARKNESS WAR                |
+| DARKO DORADO                |
+| DARLING BREAKING            |
+| DARN FORRESTER              |
+| DATE SPEED                  |
+| DAUGHTER MADIGAN            |
+| DAWN POND                   |
+| DAY UNFAITHFUL              |
+| DAZED PUNK                  |
+| DECEIVER BETRAYED           |
+| DEEP CRUSADE                |
+| DEER VIRGINIAN              |
+| DELIVERANCE MULHOLLAND      |
+| DESERT POSEIDON             |
+| DESIRE ALIEN                |
+| DESPERATE TRAINSPOTTING     |
+| DESTINATION JERK            |
+| DESTINY SATURDAY            |
+| DETAILS PACKER              |
+| DETECTIVE VISION            |
+| DEVIL DESIRE                |
+| DIARY PANIC                 |
+| DINOSAUR SECRETARY          |
+| DIRTY ACE                   |
+| DISCIPLE MOTHER             |
+| DISTURBING SCARFACE         |
+| DIVIDE MONSTER              |
+| DIVINE RESURRECTION         |
+| DIVORCE SHINING             |
+| DOCTOR GRAIL                |
+| DOGMA FAMILY                |
+| DOLLS RAGE                  |
+| DONNIE ALLEY                |
+| DOOM DANCING                |
+| DOORS PRESIDENT             |
+| DORADO NOTTING              |
+| DOUBLE WRATH                |
+| DOUBTFIRE LABYRINTH         |
+| DOWNHILL ENOUGH             |
+| DOZEN LION                  |
+| DRACULA CRYSTAL             |
+| DRAGON SQUAD                |
+| DRAGONFLY STRANGERS         |
+| DREAM PICKUP                |
+| DRIFTER COMMANDMENTS        |
+| DRIVER ANNIE                |
+| DRIVING POLISH              |
+| DROP WATERFRONT             |
+| DRUMLINE CYCLONE            |
+| DRUMS DYNAMITE              |
+| DUCK RACER                  |
+| DUDE BLINDNESS              |
+| DUFFEL APOCALYPSE           |
+| DUMBO LUST                  |
+| DURHAM PANKY                |
+| DWARFS ALTER                |
+| DYING MAKER                 |
+| DYNAMITE TARZAN             |
+| EAGLES PANKY                |
+| EARLY HOME                  |
+| EARRING INSTINCT            |
+| EARTH VISION                |
+| EASY GLADIATOR              |
+| EDGE KISSING                |
+| EFFECT GLADIATOR            |
+| EGG IGBY                    |
+| EGYPT TENENBAUMS            |
+| ELEMENT FREDDY              |
+| ELEPHANT TROJAN             |
+| ELF MURDER                  |
+| ELIZABETH SHANE             |
+| EMPIRE MALKOVICH            |
+| ENCINO ELF                  |
+| ENCOUNTERS CURTAIN          |
+| ENDING CROWDS               |
+| ENEMY ODDS                  |
+| ENGLISH BULWORTH            |
+| ENOUGH RAGING               |
+| ENTRAPMENT SATISFACTION     |
+| ESCAPE METROPOLIS           |
+| EVE RESURRECTION            |
+| EVERYONE CRAFT              |
+| EVOLUTION ALTER             |
+| EXCITEMENT EVE              |
+| EXORCIST STING              |
+| EXPECATIONS NATURAL         |
+| EXPENDABLE STALLION         |
+| EXPRESS LONELY              |
+| EXTRAORDINARY CONQUERER     |
+| EYES DRIVING                |
+| FACTORY DRAGON              |
+| FALCON VOLUME               |
+| FAMILY SWEET                |
+| FANTASIA PARK               |
+| FANTASY TROOPERS            |
+| FARGO GANDHI                |
+| FATAL HAUNTED               |
+| FEATHERS METAL              |
+| FELLOWSHIP AUTUMN           |
+| FERRIS MOTHER               |
+| FEUD FROGMEN                |
+| FEVER EMPIRE                |
+| FICTION CHRISTMAS           |
+| FIDDLER LOST                |
+| FIDELITY DEVIL              |
+| FIGHT JAWBREAKER            |
+| FINDING ANACONDA            |
+| FIRE WOLVES                 |
+| FIREBALL PHILADELPHIA       |
+| FIREHOUSE VIETNAM           |
+| FISH OPUS                   |
+| FLAMINGOS CONNECTICUT       |
+| FLASH WARS                  |
+| FLATLINERS KILLER           |
+| FLIGHT LIES                 |
+| FLINTSTONES HAPPINESS       |
+| FLOATS GARDEN               |
+| FLYING HOOK                 |
+| FOOL MOCKINGBIRD            |
+| FOREVER CANDIDATE           |
+| FORREST SONS                |
+| FORRESTER COMANCHEROS       |
+| FORWARD TEMPLE              |
+| FRANKENSTEIN STRANGER       |
+| FREAKY POCUS                |
+| FREDDY STORM                |
+| FREEDOM CLEOPATRA           |
+| FRENCH HOLIDAY              |
+| FRIDA SLIPPER               |
+| FRISCO FORREST              |
+| FROGMEN BREAKING            |
+| FRONTIER CABIN              |
+| FROST HEAD                  |
+| FUGITIVE MAGUIRE            |
+| FULL FLATLINERS             |
+| FURY MURDER                 |
+| GABLES METROPOLIS           |
+| GALAXY SWEETHEARTS          |
+| GAMES BOWFINGER             |
+| GANDHI KWAI                 |
+| GANGS PRIDE                 |
+| GARDEN ISLAND               |
+| GASLIGHT CRUSADE            |
+| GATHERING CALENDAR          |
+| GENTLEMEN STAGE             |
+| GHOST GROUNDHOG             |
+| GHOSTBUSTERS ELF            |
+| GIANT TROOPERS              |
+| GILBERT PELICAN             |
+| GILMORE BOILED              |
+| GLADIATOR WESTWARD          |
+| GLASS DYING                 |
+| GLEAMING JAWBREAKER         |
+| GLORY TRACY                 |
+| GO PURPLE                   |
+| GODFATHER DIARY             |
+| GOLD RIVER                  |
+| GOLDFINGER SENSIBILITY      |
+| GOLDMINE TYCOON             |
+| GONE TROUBLE                |
+| GOODFELLAS SALUTE           |
+| GORGEOUS BINGO              |
+| GOSFORD DONNIE              |
+| GRACELAND DYNAMITE          |
+| GRADUATE LORD               |
+| GRAFFITI LOVE               |
+| GRAIL FRANKENSTEIN          |
+| GRAPES FURY                 |
+| GREASE YOUTH                |
+| GREATEST NORTH              |
+| GREEDY ROOTS                |
+| GREEK EVERYONE              |
+| GRINCH MASSAGE              |
+| GRIT CLOCKWORK              |
+| GROOVE FICTION              |
+| GROSSE WONDERFUL            |
+| GROUNDHOG UNCUT             |
+| GUMP DATE                   |
+| GUN BONNIE                  |
+| GUNFIGHT MOON               |
+| GUNFIGHTER MUSSOLINI        |
+| GUYS FALCON                 |
+| HALF OUTFIELD               |
+| HALL CASSIDY                |
+| HALLOWEEN NUTS              |
+| HAMLET WISDOM               |
+| HANDICAP BOONDOCK           |
+| HANGING DEEP                |
+| HANKY OCTOBER               |
+| HANOVER GALAXY              |
+| HAPPINESS UNITED            |
+| HARDLY ROBBERS              |
+| HAROLD FRENCH               |
+| HARPER DYING                |
+| HARRY IDAHO                 |
+| HATE HANDICAP               |
+| HAUNTED ANTITRUST           |
+| HAUNTING PIANIST            |
+| HAWK CHILL                  |
+| HEAD STRANGER               |
+| HEARTBREAKERS BRIGHT        |
+| HEAVEN FREEDOM              |
+| HEAVENLY GUN                |
+| HEAVYWEIGHTS BEAST          |
+| HEDWIG ALTER                |
+| HELLFIGHTERS SIERRA         |
+| HIGH ENCINO                 |
+| HIGHBALL POTTER             |
+| HILLS NEIGHBORS             |
+| HOBBIT ALIEN                |
+| HOCUS FRIDA                 |
+| HOLES BRANNIGAN             |
+| HOLIDAY GAMES               |
+| HOLLOW JEOPARDY             |
+| HOLLYWOOD ANONYMOUS         |
+| HOLOCAUST HIGHBALL          |
+| HOLY TADPOLE                |
+| HOME PITY                   |
+| HOMEWARD CIDER              |
+| HOMICIDE PEACH              |
+| HONEY TIES                  |
+| HOOK CHARIOTS               |
+| HOOSIERS BIRDCAGE           |
+| HOPE TOOTSIE                |
+| HORN WORKING                |
+| HORROR REIGN                |
+| HOTEL HAPPINESS             |
+| HOURS RAGE                  |
+| HOUSE DYNAMITE              |
+| HUMAN GRAFFITI              |
+| HUNCHBACK IMPOSSIBLE        |
+| HUNGER ROOF                 |
+| HUNTER ALTER                |
+| HUNTING MUSKETEERS          |
+| HURRICANE AFFAIR            |
+| HUSTLER PARTY               |
+| HYDE DOCTOR                 |
+| HYSTERICAL GRAIL            |
+| ICE CROSSING                |
+| IDAHO LOVE                  |
+| IDENTITY LOVER              |
+| IDOLS SNATCHERS             |
+| IGBY MAKER                  |
+| ILLUSION AMELIE             |
+| IMAGE PRINCESS              |
+| IMPACT ALADDIN              |
+| IMPOSSIBLE PREJUDICE        |
+| INCH JET                    |
+| INDEPENDENCE HOTEL          |
+| INDIAN LOVE                 |
+| INFORMER DOUBLE             |
+| INNOCENT USUAL              |
+| INSECTS STONE               |
+| INSIDER ARIZONA             |
+| INSTINCT AIRPORT            |
+| INTENTIONS EMPIRE           |
+| INTERVIEW LIAISONS          |
+| INTOLERABLE INTENTIONS      |
+| INTRIGUE WORST              |
+| INVASION CYCLONE            |
+| IRON MOON                   |
+| ISHTAR ROCKETEER            |
+| ISLAND EXORCIST             |
+| ITALIAN AFRICAN             |
+| JACKET FRISCO               |
+| JADE BUNCH                  |
+| JAPANESE RUN                |
+| JASON TRAP                  |
+| JAWBREAKER BROOKLYN         |
+| JAWS HARRY                  |
+| JEDI BENEATH                |
+| JEEPERS WEDDING             |
+| JEKYLL FROGMEN              |
+| JEOPARDY ENCINO             |
+| JERICHO MULAN               |
+| JERK PAYCHECK               |
+| JERSEY SASSY                |
+| JET NEIGHBORS               |
+| JINGLE SAGEBRUSH            |
+| JOON NORTHWEST              |
+| JUGGLER HARDLY              |
+| JUMANJI BLADE               |
+| JUMPING WRATH               |
+| JUNGLE CLOSER               |
+| KANE EXORCIST               |
+| KARATE MOON                 |
+| KENTUCKIAN GIANT            |
+| KICK SAVANNAH               |
+| KILL BROTHERHOOD            |
+| KILLER INNOCENT             |
+| KING EVOLUTION              |
+| KISS GLORY                  |
+| KISSING DOLLS               |
+| KNOCK WARLOCK               |
+| KRAMER CHOCOLATE            |
+| KWAI HOMEWARD               |
+| LABYRINTH LEAGUE            |
+| LADY STAGE                  |
+| LADYBUGS ARMAGEDDON         |
+| LAMBS CINCINATTI            |
+| LANGUAGE COWBOY             |
+| LAWLESS VISION              |
+| LAWRENCE LOVE               |
+| LEAGUE HELLFIGHTERS         |
+| LEATHERNECKS DWARFS         |
+| LEBOWSKI SOLDIERS           |
+| LEGALLY SECRETARY           |
+| LEGEND JEDI                 |
+| LESSON CLEOPATRA            |
+| LIAISONS SWEET              |
+| LIBERTY MAGNIFICENT         |
+| LICENSE WEEKEND             |
+| LIES TREATMENT              |
+| LIFE TWISTED                |
+| LIGHTS DEER                 |
+| LION UNCUT                  |
+| LOATHING LEGALLY            |
+| LOCK REAR                   |
+| LOLA AGENT                  |
+| LOLITA WORLD                |
+| LONELY ELEPHANT             |
+| LORD ARIZONA                |
+| LOSE INCH                   |
+| LOSER HUSTLER               |
+| LOST BIRD                   |
+| LOUISIANA HARRY             |
+| LOVE SUICIDES               |
+| LOVELY JINGLE               |
+| LOVER TRUMAN                |
+| LOVERBOY ATTACKS            |
+| LUCK OPUS                   |
+| LUCKY FLYING                |
+| LUKE MUMMY                  |
+| LUST LOCK                   |
+| MADIGAN DORADO              |
+| MADISON TRAP                |
+| MADNESS ATTACKS             |
+| MADRE GABLES                |
+| MAGIC MALLRATS              |
+| MAGNIFICENT CHITTY          |
+| MAGNOLIA FORRESTER          |
+| MAGUIRE APACHE              |
+| MAIDEN HOME                 |
+| MAJESTIC FLOATS             |
+| MAKER GABLES                |
+| MALKOVICH PET               |
+| MALLRATS UNITED             |
+| MALTESE HOPE                |
+| MANCHURIAN CURTAIN          |
+| MANNEQUIN WORST             |
+| MARRIED GO                  |
+| MARS ROMAN                  |
+| MASK PEACH                  |
+| MASKED BUBBLE               |
+| MASSACRE USUAL              |
+| MASSAGE IMAGE               |
+| MATRIX SNOWMAN              |
+| MAUDE MOD                   |
+| MEET CHOCOLATE              |
+| MEMENTO ZOOLANDER           |
+| MENAGERIE RUSHMORE          |
+| MERMAID INSECTS             |
+| METAL ARMAGEDDON            |
+| METROPOLIS COMA             |
+| MICROCOSMOS PARADISE        |
+| MIDNIGHT WESTWARD           |
+| MIDSUMMER GROUNDHOG         |
+| MIGHTY LUCK                 |
+| MILE MULAN                  |
+| MILLION ACE                 |
+| MINDS TRUMAN                |
+| MINE TITANS                 |
+| MINORITY KISS               |
+| MIRACLE VIRTUAL             |
+| MISSION ZOOLANDER           |
+| MIXED DOORS                 |
+| MOB DUFFEL                  |
+| MOCKINGBIRD HOLLYWOOD       |
+| MOD SECRETARY               |
+| MODEL FISH                  |
+| MODERN DORADO               |
+| MONEY HAROLD                |
+| MONSOON CAUSE               |
+| MONSTER SPARTACUS           |
+| MONTEREY LABYRINTH          |
+| MONTEZUMA COMMAND           |
+| MOON BUNCH                  |
+| MOONSHINE CABIN             |
+| MOONWALKER FOOL             |
+| MOSQUITO ARMAGEDDON         |
+| MOTHER OLEANDER             |
+| MOTIONS DETAILS             |
+| MOULIN WAKE                 |
+| MOURNING PURPLE             |
+| MOVIE SHAKESPEARE           |
+| MULAN MOON                  |
+| MULHOLLAND BEAST            |
+| MUMMY CREATURES             |
+| MUPPET MILE                 |
+| MURDER ANTITRUST            |
+| MUSCLE BRIGHT               |
+| MUSIC BOONDOCK              |
+| MUSKETEERS WAIT             |
+| MUSSOLINI SPOILERS          |
+| MYSTIC TRUMAN               |
+| NAME DETECTIVE              |
+| NASH CHOCOLAT               |
+| NATIONAL STORY              |
+| NATURAL STOCK               |
+| NECKLACE OUTBREAK           |
+| NEIGHBORS CHARADE           |
+| NEMO CAMPUS                 |
+| NETWORK PEAK                |
+| NEWSIES STORY               |
+| NEWTON LABYRINTH            |
+| NIGHTMARE CHILL             |
+| NONE SPIKING                |
+| NOON PAPI                   |
+| NORTH TEQUILA               |
+| NORTHWEST POLISH            |
+| NOTORIOUS REUNION           |
+| NOTTING SPEAKEASY           |
+| NOVOCAINE FLIGHT            |
+| NUTS TIES                   |
+| OCTOBER SUBMARINE           |
+| ODDS BOOGIE                 |
+| OKLAHOMA JUMANJI            |
+| OLEANDER CLUE               |
+| OPEN AFRICAN                |
+| OPERATION OPERATION         |
+| OPPOSITE NECKLACE           |
+| OPUS ICE                    |
+| ORANGE GRAPES               |
+| ORDER BETRAYED              |
+| ORIENT CLOSER               |
+| OSCAR GOLD                  |
+| OTHERS SOUP                 |
+| OUTBREAK DIVINE             |
+| OUTFIELD MASSACRE           |
+| OUTLAW HANKY                |
+| OZ LIAISONS                 |
+| PACIFIC AMISTAD             |
+| PACKER MADIGAN              |
+| PAJAMA JAWBREAKER           |
+| PANIC CLUB                  |
+| PANKY SUBMARINE             |
+| PANTHER REDS                |
+| PAPI NECKLACE               |
+| PARADISE SABRINA            |
+| PARIS WEEKEND               |
+| PARK CITIZEN                |
+| PARTY KNOCK                 |
+| PAST SUICIDES               |
+| PATHS CONTROL               |
+| PATIENT SISTER              |
+| PATRIOT ROMAN               |
+| PATTON INTERVIEW            |
+| PAYCHECK WAIT               |
+| PEACH INNOCENT              |
+| PEAK FOREVER                |
+| PEARL DESTINY               |
+| PELICAN COMFORTS            |
+| PERDITION FARGO             |
+| PERFECT GROOVE              |
+| PERSONAL LADYBUGS           |
+| PET HAUNTING                |
+| PHANTOM GLORY               |
+| PHILADELPHIA WIFE           |
+| PIANIST OUTFIELD            |
+| PICKUP DRIVING              |
+| PILOT HOOSIERS              |
+| PINOCCHIO SIMON             |
+| PIRATES ROXANNE             |
+| PITTSBURGH HUNCHBACK        |
+| PITY BOUND                  |
+| PIZZA JUMANJI               |
+| PLATOON INSTINCT            |
+| PLUTO OLEANDER              |
+| POCUS PULP                  |
+| POLISH BROOKLYN             |
+| POLLOCK DELIVERANCE         |
+| POND SEATTLE                |
+| POSEIDON FOREVER            |
+| POTLUCK MIXED               |
+| POTTER CONNECTICUT          |
+| PREJUDICE OLEANDER          |
+| PRESIDENT BANG              |
+| PRIDE ALAMO                 |
+| PRIMARY GLASS               |
+| PRINCESS GIANT              |
+| PRIVATE DROP                |
+| PRIX UNDEFEATED             |
+| PSYCHO SHRUNK               |
+| PULP BEVERLY                |
+| PUNK DIVORCE                |
+| PURE RUNNER                 |
+| PURPLE MOVIE                |
+| QUEEN LUKE                  |
+| QUEST MUSSOLINI             |
+| QUILLS BULL                 |
+| RACER EGG                   |
+| RAGE GAMES                  |
+| RAGING AIRPLANE             |
+| RAIDERS ANTITRUST           |
+| RAINBOW SHOCK               |
+| RANDOM GO                   |
+| RANGE MOONWALKER            |
+| REAP UNFAITHFUL             |
+| REAR TRADING                |
+| REBEL AIRPORT               |
+| RECORDS ZORRO               |
+| REDEMPTION COMFORTS         |
+| REDS POCUS                  |
+| REEF SALUTE                 |
+| REIGN GENTLEMEN             |
+| REMEMBER DIARY              |
+| REQUIEM TYCOON              |
+| RESERVOIR ADAPTATION        |
+| RESURRECTION SILVERADO      |
+| REUNION WITCHES             |
+| RIDER CADDYSHACK            |
+| RIDGEMONT SUBMARINE         |
+| RIGHT CRANES                |
+| RINGS HEARTBREAKERS         |
+| RIVER OUTLAW                |
+| ROAD ROXANNE                |
+| ROBBERS JOON                |
+| ROBBERY BRIGHT              |
+| ROCK INSTINCT               |
+| ROCKETEER MOTHER            |
+| ROCKY WAR                   |
+| ROLLERCOASTER BRINGING      |
+| ROMAN PUNK                  |
+| ROOF CHAMPION               |
+| ROOM ROMAN                  |
+| ROOTS REMEMBER              |
+| ROSES TREASURE              |
+| ROUGE SQUAD                 |
+| ROXANNE REBEL               |
+| RUGRATS SHAKESPEARE         |
+| RULES HUMAN                 |
+| RUN PACIFIC                 |
+| RUNAWAY TENENBAUMS          |
+| RUNNER MADIGAN              |
+| RUSH GOODFELLAS             |
+| RUSHMORE MERMAID            |
+| SABRINA MIDNIGHT            |
+| SADDLE ANTITRUST            |
+| SAGEBRUSH CLUELESS          |
+| SAINTS BRIDE                |
+| SALUTE APOLLO               |
+| SAMURAI LION                |
+| SANTA PARIS                 |
+| SASSY PACKER                |
+| SATISFACTION CONFIDENTIAL   |
+| SATURDAY LAMBS              |
+| SATURN NAME                 |
+| SAVANNAH TOWN               |
+| SCALAWAG DUCK               |
+| SCARFACE BANG               |
+| SCHOOL JACKET               |
+| SCISSORHANDS SLUMS          |
+| SCORPION APOLLO             |
+| SEA VIRGIN                  |
+| SEABISCUIT PUNK             |
+| SEARCHERS WAIT              |
+| SEATTLE EXPECATIONS         |
+| SECRET GROUNDHOG            |
+| SECRETARY ROUGE             |
+| SECRETS PARADISE            |
+| SENSE GREEK                 |
+| SENSIBILITY REAR            |
+| SEVEN SWARM                 |
+| SHAKESPEARE SADDLE          |
+| SHANE DARKNESS              |
+| SHANGHAI TYCOON             |
+| SHAWSHANK BUBBLE            |
+| SHEPHERD MIDSUMMER          |
+| SHINING ROSES               |
+| SHIP WONDERLAND             |
+| SHOCK CABIN                 |
+| SHOOTIST SUPERFLY           |
+| SHOW LORD                   |
+| SHREK LICENSE               |
+| SHRUNK DIVINE               |
+| SIDE ARK                    |
+| SIEGE MADRE                 |
+| SIERRA DIVIDE               |
+| SILENCE KANE                |
+| SILVERADO GOLDFINGER        |
+| SIMON NORTH                 |
+| SINNERS ATLANTIS            |
+| SISTER FREDDY               |
+| SKY MIRACLE                 |
+| SLACKER LIAISONS            |
+| SLEEPING SUSPECTS           |
+| SLEEPLESS MONSOON           |
+| SLEEPY JAPANESE             |
+| SLEUTH ORIENT               |
+| SLING LUKE                  |
+| SLIPPER FIDELITY            |
+| SLUMS DUCK                  |
+| SMILE EARRING               |
+| SMOKING BARBARELLA          |
+| SMOOCHY CONTROL             |
+| SNATCH SLIPPER              |
+| SNATCHERS MONTEZUMA         |
+| SNOWMAN ROLLERCOASTER       |
+| SOLDIERS EVOLUTION          |
+| SOMETHING DUCK              |
+| SONG HEDWIG                 |
+| SONS INTERVIEW              |
+| SORORITY QUEEN              |
+| SOUP WISDOM                 |
+| SOUTH WAIT                  |
+| SPARTACUS CHEAPER           |
+| SPEAKEASY DATE              |
+| SPEED SUIT                  |
+| SPICE SORORITY              |
+| SPIKING ELEMENT             |
+| SPINAL ROCKY                |
+| SPIRIT FLINTSTONES          |
+| SPIRITED CASUALTIES         |
+| SPLASH GUMP                 |
+| SPLENDOR PATTON             |
+| SPOILERS HELLFIGHTERS       |
+| SPY MILE                    |
+| SQUAD FISH                  |
+| STAGE WORLD                 |
+| STAGECOACH ARMAGEDDON       |
+| STALLION SUNDANCE           |
+| STAMPEDE DISTURBING         |
+| STAR OPERATION              |
+| STATE WASTELAND             |
+| STEEL SANTA                 |
+| STEERS ARMAGEDDON           |
+| STEPMOM DREAM               |
+| STING PERSONAL              |
+| STOCK GLASS                 |
+| STONE FIRE                  |
+| STORM HAPPINESS             |
+| STORY SIDE                  |
+| STRAIGHT HOURS              |
+| STRANGELOVE DESIRE          |
+| STRANGER STRANGERS          |
+| STRANGERS GRAFFITI          |
+| STREAK RIDGEMONT            |
+| STREETCAR INTENTIONS        |
+| STRICTLY SCARFACE           |
+| SUBMARINE BED               |
+| SUGAR WONKA                 |
+| SUICIDES SILENCE            |
+| SUIT WALLS                  |
+| SUMMER SCARFACE             |
+| SUN CONFESSIONS             |
+| SUNDANCE INVASION           |
+| SUNRISE LEAGUE              |
+| SUNSET RACER                |
+| SUPER WYOMING               |
+| SUPERFLY TRIP               |
+| SUSPECTS QUILLS             |
+| SWARM GOLD                  |
+| SWEDEN SHINING              |
+| SWEET BROTHERHOOD           |
+| SWEETHEARTS SUSPECTS        |
+| TADPOLE PARK                |
+| TALENTED HOMICIDE           |
+| TARZAN VIDEOTAPE            |
+| TAXI KICK                   |
+| TEEN APOLLO                 |
+| TELEGRAPH VOYAGE            |
+| TELEMARK HEARTBREAKERS      |
+| TEMPLE ATTRACTION           |
+| TENENBAUMS COMMAND          |
+| TEQUILA PAST                |
+| TERMINATOR CLUB             |
+| TEXAS WATCH                 |
+| THEORY MERMAID              |
+| THIEF PELICAN               |
+| THIN SAGEBRUSH              |
+| TIES HUNGER                 |
+| TIGHTS DAWN                 |
+| TIMBERLAND SKY              |
+| TITANIC BOONDOCK            |
+| TITANS JERK                 |
+| TOMATOES HELLFIGHTERS       |
+| TOMORROW HUSTLER            |
+| TOOTSIE PILOT               |
+| TORQUE BOUND                |
+| TOURIST PELICAN             |
+| TOWERS HURRICANE            |
+| TOWN ARK                    |
+| TRACY CIDER                 |
+| TRADING PINOCCHIO           |
+| TRAFFIC HOBBIT              |
+| TRAIN BUNCH                 |
+| TRAINSPOTTING STRANGERS     |
+| TRAMP OTHERS                |
+| TRANSLATION SUMMER          |
+| TRAP GUYS                   |
+| TREASURE COMMAND            |
+| TREATMENT JEKYLL            |
+| TRIP NEWTON                 |
+| TROJAN TOMORROW             |
+| TROOPERS METAL              |
+| TROUBLE DATE                |
+| TRUMAN CRAZY                |
+| TURN STAR                   |
+| TUXEDO MILE                 |
+| TWISTED PIRATES             |
+| TYCOON GATHERING            |
+| UNBREAKABLE KARATE          |
+| UNCUT SUICIDES              |
+| UNDEFEATED DALMATIONS       |
+| UNFAITHFUL KILL             |
+| UNFORGIVEN ZOOLANDER        |
+| UNITED PILOT                |
+| UNTOUCHABLES SUNRISE        |
+| UPRISING UPTOWN             |
+| UPTOWN YOUNG                |
+| USUAL UNTOUCHABLES          |
+| VACATION BOONDOCK           |
+| VALENTINE VANISHING         |
+| VALLEY PACKER               |
+| VAMPIRE WHALE               |
+| VANILLA DAY                 |
+| VANISHED GARDEN             |
+| VANISHING ROCKY             |
+| VARSITY TRIP                |
+| VELVET TERMINATOR           |
+| VERTIGO NORTHWEST           |
+| VICTORY ACADEMY             |
+| VIDEOTAPE ARSENIC           |
+| VIETNAM SMOOCHY             |
+| VILLAIN DESPERATE           |
+| VIRGIN DAISY                |
+| VIRGINIAN PLUTO             |
+| VIRTUAL SPOILERS            |
+| VISION TORQUE               |
+| VOICE PEACH                 |
+| VOLCANO TEXAS               |
+| VOLUME HOUSE                |
+| VOYAGE LEGALLY              |
+| WAGON JAWS                  |
+| WAIT CIDER                  |
+| WAKE JAWS                   |
+| WALLS ARTIST                |
+| WANDA CHAMBER               |
+| WAR NOTTING                 |
+| WARDROBE PHANTOM            |
+| WARLOCK WEREWOLF            |
+| WARS PLUTO                  |
+| WASH HEAVENLY               |
+| WASTELAND DIVINE            |
+| WATCH TRACY                 |
+| WATERFRONT DELIVERANCE      |
+| WATERSHIP FRONTIER          |
+| WEDDING APOLLO              |
+| WEEKEND PERSONAL            |
+| WEREWOLF LOLA               |
+| WEST LION                   |
+| WESTWARD SEABISCUIT         |
+| WHALE BIKINI                |
+| WHISPERER GIANT             |
+| WIFE TURN                   |
+| WILD APOLLO                 |
+| WILLOW TRACY                |
+| WIND PHANTOM                |
+| WINDOW SIDE                 |
+| WISDOM WORKER               |
+| WITCHES PANIC               |
+| WIZARD COLDBLOODED          |
+| WOLVES DESIRE               |
+| WOMEN DORADO                |
+| WON DARES                   |
+| WONDERFUL DROP              |
+| WONDERLAND CHRISTMAS        |
+| WONKA SEA                   |
+| WORDS HUNTER                |
+| WORKER TARZAN               |
+| WORKING MICROCOSMOS         |
+| WORLD LEATHERNECKS          |
+| WORST BANGER                |
+| WRATH MILE                  |
+| WRONG BEHAVIOR              |
+| WYOMING STORM               |
+| YENTL IDAHO                 |
+| YOUNG LANGUAGE              |
+| YOUTH KICK                  |
+| ZHIVAGO CORE                |
+| ZOOLANDER FICTION           |
+| ZORRO ARK                   |
++-----------------------------+
+1000 rows in set (0.0017 sec)
+ MySQL  localhost:3306 ssl  tbd_el  SQL > create temporary table category select * from sakila.category;
+Query OK, 16 rows affected (0.0130 sec)
